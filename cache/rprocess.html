@@ -1,0 +1,574 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML><HEAD><LINK rev="made" href="mailto:webmaster@eff.org">
+<LINK rel="home" href="/">
+<LINK rel="toc" href="/archives.html">
+<LINK rel="index" href="/links2.html">
+<LINK rel="copyright" href="/copyr.html">
+<LINK rel="help" href="/howtouse.html">
+<TITLE>Remailer Vulnerabilities</TITLE></HEAD>
+<BODY bgcolor="#fffaeb" text="#000000" link="#0000ee" vlink="#03066A" alink="#FF0000">
+<A NAME="top">&nbsp;</A>
+ 
+     <DIV align="CENTER">
+          <A HREF="/EFFdocs/about_eff.html"><IMG BORDER=0 SRC="/Icons/home/electronic.gif" ALT="ELECTRONIC "
+          width="122" height="23"><IMG BORDER=0 SRC="/Icons/home/frontier.gif" width="91" 
+          height="23" ALT="FRONTIER "><IMG ALT="FOUNDATION"
+          BORDER=0 SRC="/Icons/home/foundation.gif" width="136" 
+          height="23"></A><BR>
+          
+          <A HREF="/join/join_eff.html"><IMG BORDER=0 SRC="/Icons/home/joineff.gif" width="59" height="79" ALT="[Join EFF] "></A><A HREF="/blueribbon.html"><IMG 
+          BORDER=0 SRC="/Icons/home/actnow.gif" width="62" height="79" ALT="[Act Now] "></A><A HREF="/"><IMG 
+          BORDER=0 SRC="/Icons/home/efflogo.gif" width="90" height="60" ALT=""></A><A HREF="/signup.html"><IMG 
+          BORDER=0 SRC="/Icons/home/signup.gif" width="73" height="79" ALT="[Sign Up] "></A><A HREF="/EFFdocs/about_eff.html"><IMG 
+          BORDER=0 SRC="/Icons/home/abouteff.gif" width="64" height="79" ALT="[About EFF]"></A><BR></DIV>
+
+
+<H2><CENTER>
+Selective Denial of Service (DoS) Attacks: Remailer Vulnerabilities
+</CENTER></H2>
+
+
+<P>
+(Note: this article came from remailer-operators/cypherpunks. 
+The author is  RProcess and this article is reprinted with permission.)
+<A HREF="mailto:rprocess@nym.alias.net">rprocess@nym.alias.net</A>
+</P>
+
+
+<P>
+The following is a (somewhat long) discussion of what I consider to be
+some of the primary vulnerabilities in the current Cypherpunk/Mixmaster
+anonymous remailer system, and how I suspect some of these
+vulnerabilities are being quietly exploited.
+</P>
+
+<P>
+It is not my intention to undermine confidence in the current system,
+which does offer substantial security and usefulness, but to discuss
+potential and probable threats with the goal of long-term improvement.
+</P>
+
+<P>
+To date I have written three remailer clients (Potato, JBN 1 and 2) and
+a Windows remailer (Reliable), and in attempting to test the features
+thoroughly over several years time, have observed various problematic
+aspects of the remailer system, and have attempted to analyze anomalies
+very carefully.  I am sharing these observations now because I am fairly
+confident that if they are not accurate, they are at least plausible
+fiction, and thus worthy of consideration.
+</P>
+
+
+<H3>Contents:</H3>
+
+<UL TYPE=DISC>
+<LI>    WHAT I HAVE OBSERVED
+<LI>    SELECTIVE DOS
+<LI>    PLAUSIBILITY
+<LI>    THE HOLE
+<LI>    WHAT I HAVE NOT OBSERVED
+<LI>    OTHER ATTACKS
+<LI>    WHY BE CONCERNED?
+<LI>    WHAT CAN BE DONE
+<LI>    THE NEXT GENERATION
+<LI>    IN CLOSING
+</UL>
+
+
+<H3>WHAT I HAVE OBSERVED</H3>
+
+<P>
+Briefly, I have observed the same thing that many remailer users have
+complained about for some time - lost mail.  The possible difference is
+that I have investigated it a little more deliberately than most users
+would care to do.  Some mail sent through remailers vanishes.  This has
+previously been explained as unreliable software, hardware, networking,
+etc.  However I have found these explanations to be insufficient to
+explain my observations.
+</P>
+
+<P>
+One of the goals of writing Potato (and likewise JBN) was to provide a
+remailer client that would be very accurate and dependable, thus
+providing a means to produce consistent and dependably formatted mail.
+By allowing users to save templates of message constructions, it removes
+a lot of human error.  It also provides an artificial memory by which a
+user can verify whether or not a missing message was constructed
+properly.
+</P>
+
+<P>
+Likewise, Reliable (as the name implies) was designed to do everything
+possible to eliminate disappearing messages.  Reliable is very reluctant
+to discard messages, and has several tiers of message disposal, with the
+ability to requeue messages which are unprocessed due to
+misconfiguration or other questionable problems.  In addition, the
+Freedom and Mixmaster remailers have undergone a lot of work by Johannes
+Kroeger and Ulf Moller which I believe has made them much more
+dependable (and secure) than remailers operating some years ago.
+</P>
+
+<P>
+As a result of these improvements we have clients and servers which run
+consistently and with a large degree of reliability.  So why is it so
+very difficult to generate a dependable and secure reply-block?
+</P>
+
+<P>
+Some of my observations:
+</P>
+
+<UL TYPE=DISC>
+<LI>    Some mail vanishes, particularly if unique (not sent through a
+        previously established encrypted reply-block).<BR>
+	
+<LI>    Mail which is securely encrypted is more likely to vanish or be
+        delayed than are simple messages.<BR>
+    
+<LI>    Mail which is well-chained is far more likely to be lost, even
+        allowing for increased probability of serial failure and other
+        causes, even when all remailers in the chain test ok.<BR>
+    
+<LI>    Ping messages are more reliable than real mail.  The new version 2
+        stats reveal that most remailers are very consistent and reliable in
+        processing pings, and true network and server down time is very
+        obvious and quite rare.  Yet actual use of the remailers in chains
+        paints a very different picture than these stats.<BR>
+    
+<LI>    Established reply-blocks may work flawlessly, while a newly created
+        reply-block with the same remailers will be delayed or lost.<BR>
+    
+<LI>    New reply-block chains are delayed for the first several uses.<BR>
+    
+<LI>    There is a correspondence between nym accounts and new reply-block
+        unreliability.  (ie a new reply-block for xxx@nym.alias.net will be
+        consistently more unreliable than the same or similar reply-block
+        for yyy@nym.alias.net)<BR>
+
+<LI>    Remailer operators complain of their stats being low despite their
+        remailer functioning normally.<BR>
+
+<LI>    Conduction of some news messages between servers is impeded beyond
+        expectations.
+    
+</UL>
+
+<P>
+Isolated incidents can be dismissed as coincidence, due to traffic
+levels, and other variations, but over time the trends become very clear
+and disturbing, the reasons ever diminishing.  I think most remailer and
+nym users are well acquainted with this behavior, to the point where
+they take it for granted, and I think some of those who work in
+providing remailer services or software are unaware of the problem
+simply because they don't actually use the services extensively.
+</P>
+
+
+<P>
+I think one of three basic possibilities exist for an explanation of the
+unreliability.  One, unreliable remailer software (servers discarding
+the messages despite their delivery and clients generating malformatted
+messages).  Two, an unreliable network which is not delivering the
+messages.  Three, a third influence, deliberate or otherwise, which is
+preventing their delivery or processing.
+</P>
+
+<P>
+I have satisfied my own questions regarding the first.  While I admit
+that software problems do occur, they are not widespread and subtle to
+the extent which would cause this much lost mail and unpredictability,
+and predictable loss without discernable and reproducible cause.
+</P>
+
+<P>
+Regarding the second possibility, internet reliability has increased.
+How often does plain email disappear into a void?  Not often.  Nor would
+this explain the 'intelligent' nature of the losses I have observed.
+</P>
+
+<P>
+Despite trying to resist the paranoid alternative, I have come to
+conclude that the third alternative is the case - that something or
+someone is interfering between the users and remailers, and between
+remailers, engaging in a very subtle and selective DoS attack.
+</P>
+
+
+
+<H3>SELECTIVE DOS</H3>
+
+<P>
+DoS refers to Denial of Service.  One kind of attack on encrypted or
+secure communication involves sabotaging the communication, or denying
+the service.  An example is a mail bomb sent to a remailer.  While
+recovering from the mail bomb the remailer is unable to process
+messages, and thus users are denied service, are unable to communicate.
+</P>
+
+<P>
+By selective denial of service I refer to the ability to inhibit or stop
+some kinds or types of messages while allowing others.  If done
+carefully, and perhaps in conjunction with compromised keys, this can be
+used to inhibit the use of some kinds of services while promoting the
+use of others.  An example:
+</P>
+
+<P>
+User X attempts to create a nym account using remailers A and B.  It
+doesn't work.  He recreates his nym account using remailers A and C.
+This works so he uses it.  Thus he has chosen remailer C and avoided
+remailer B.  If the attacker runs remailers A and C, or has the keys for
+these remailers, but is unable to compromise B, he can make it more
+likely that users will use A and C by sabotaging B's messages.  He may
+do this by running remailer A and refusing certain kinds of messages
+chained to B, or he may do this externally by interrupting the
+connections to B.
+</P>
+
+
+<P>
+User Y attempts to create a very secure reply-block using advanced anti-
+analysis features (perhaps long latency, random hops, superior
+encryption, etc).  His reply-block fails outright or is so unreliable
+that he decides to change it.  He forgoes some of his advanced features
+for a more reliable (yet less secure) reply-block.  Thus the attacker
+has induced the user to use less secure features, or perhaps has
+discouraged the use of remailers completely.
+</P>
+
+
+<P>
+User Z attempts to create a reply-block, or send a message.  Again and
+again he has failures so he sends himself test messages using similar
+remailers and features, or if he is inexperienced he may mail his own
+account directly.  By inhibiting the success of his mail, the attacker
+has made it more likely that the user will expose himself through
+testing, repetition, and security oversights.  How many new users are
+creating new reply-blocks at any given time?  Not that many, especially
+given a thorough statistical analysis.
+</P>
+
+
+<P>
+Another example:  It is somewhat possible to tell how long a reply-block
+is by examining the size of the encrypted reply-block.  Thus the
+attacker kills some or all messages with longer chains, reducing their
+use.
+</P>
+
+
+<P>
+Thus through selective denial of service, the following can be
+accomplished:
+</P>
+
+<UL TYPE=DISC>
+<LI>    Choice of remailers influenced
+<LI>    Choice of features influenced
+<LI>    Cause testing and repetition to be required
+<LI>    Longer chains inhibited
+<LI>    General dissuasion of remailer use due to unpredictability
+</UL>
+
+
+
+<H3>PLAUSIBILITY</H3>
+
+<P>
+How plausible is the scenario that someone is doing this?
+</P>
+
+<P>
+Cutting to the chase, I think the most plausible organizations
+responsible for such an attack would be the usual suspects - NSA, CIA,
+and other military and intelligence organizations.  They have the means
+and the motives to make such an attack worth their while.  Given
+operations like Echelon (NSA's widespread interception of electronic
+communication in Europe), and other intelligence networks such as the
+CIA's meddlesome habits, it is reasonable to assume they are doing
+*something* with regard to remailers.  Remailers potentially allow
+organizations to communicate in an untraceable fashion worldwide.  A lot
+of intelligence and counterintelligence is based on interrupting
+untraceable communication.  So it is reasonable to assume they are doing
+something.
+</P>
+
+<P>
+What is it likely that they are doing?  Given their habits, it is most
+likely they would do something as subtle as possible.  They would prefer
+their intrusion to be undetected and unverifiable, with no traces left
+behind.  They would prefer to leave the illusion that the system has not
+been compromised.
+</P>
+
+
+
+<H3>THE HOLE</H3>
+
+<P>
+The reliability hole in the remailer system provides a way, perhaps the
+best way, to accomplish these goals.  A lost message only provides
+evidence by its absence, so there is no positive evidence of a third
+party at work.  It provides a way to influence remailer use, and it uses
+other genuine remailer problems as cover.  It also uses the difficulty
+of producing reliable remailer messages manually as cover, although this
+has become less of an issue with reliable clients.
+</P>
+
+<P>
+As long as remailers have been around, unreliability has been a problem.
+Further, as remailers became more reliable, chaining reliability began
+showing inexplicable deficiencies.  We take stats lists for granted, but
+why do we need such an elaborate fix?  Why have software and network
+problems remained for so long?  Or have they?  After extensive analysis,
+I see very little evidence of software or network problems causing these
+losses, and the only alternative explanation remaining is deliberate
+interference.
+</P>
+
+<P>
+I think remailer users and developers have become complacent about the
+reliability problem, accepting it, and thus accepting a large
+vulnerability in the system.  But is it understandable, because it is a
+very difficult problem to pinpoint and document.
+</P>
+
+
+
+<H3>WHAT I HAVE NOT OBSERVED</H3>
+
+<P>
+What are the alternatives to a selective DoS attack?
+</P>
+
+<P>
+I will not say these things don't exist or haven't been done, but I have
+not observed the following directly or indirectly.
+</P>
+
+<UL TYPE=DISC>
+   
+
+   
+  <LI>  A Non-Selective DoS - A remailer or group of remailers being
+    completely switched off or blocked.<BR>
+
+   <LI> False Keys - Distribution of false keys and false signatures could
+    be used in a man-in-the-middle or other attack, but again this
+    leaves possible evidence that someone has compromised the system or
+    attempted to do so.<BR>
+    
+   <LI> Hacking Attacks - There is little evidence to indicate a coordinated
+    hacking attack.<BR>
+    
+   <LI> Trojan Viruses - Planting software which can steal keys or otherwise
+    damage the system is plausible.  I have read the usual bits which
+    indicate this does go on in software, but I have not witnessed this
+    problem directly or related to remailers.  Again note that this
+    leaves tracks.  I think the more plausible method in encryption and
+    security products would be for weaknesses to be introduced which
+    could later be claimed to be programmer or design errors.
+    
+</UL>
+
+<H3>OTHER ATTACKS</H3>
+
+<P>
+Of course there continue to be other vulnerabilities.  Anyone can run a
+remailer, and it stands to reason that one method of intercepting some
+mail, and selectively deleting some mail, would be for the attacker to
+run one or more remailers.
+</P>
+
+<P>
+There is also the threat of key theft.  Based on what I have observed, I
+consider it a very strong possibility that at least some keys are
+available to those performing what I suspect is a selective DoS.  Given
+nym.alias.net's location at MIT (home of half of the DOD), a college
+computer with only reasonable security, and given the fact that the key
+has not been changed for years, I find it reasonable to suppose that the
+key has been stolen.
+</P>
+
+<P>
+There remains the possibility of keys or messages being cracked.  This
+takes time and could explain some of the curious delay trends observed
+by myself and others.  However one has to suppose that some of the
+encryption schemes are somewhat secure or there would be no incentive to
+perform a selective DoS.
+</P>
+
+<P>
+I find it plausible that intelligence agencies would construct a
+campaign to report and generate abuses, causing remailers to be shut
+down by ISPs, etc., and to generate mail bombs and other attacks when
+suited to their purposes.  This is in general keeping with the history
+of their indirect involvement.
+</P>
+
+
+
+<H3>WHY BE CONCERNED?</H3>
+
+<P>
+One argument is that unless you are a spy or a terrorist, it may not
+matter much that the intelligence agencies read your mail or trace your
+identity.  They don't involve themselves much with law enforcement,
+preferring to break the laws themselves, except when it suits their
+purposes.
+</P>
+
+<P>
+However these people are unlawfully and often unethically exerting an
+influence, and most users concerned with privacy and free expression
+issues are concerned by this kind of interference.
+</P>
+
+<P>
+Further, the anonymous remailer system has grown from being vulnerable
+to the type of attack used against anon.penet.fi, to using nym-servers
+where even the operator does not know the identity of account owners.
+One hopes that other vulnerabilities will be addressed as the need for
+privacy and free expression grows.
+</P>
+
+<P>
+Finally, this is of concern to all remailer users as it makes the
+remailer system devilish to use.
+</P>
+
+<P>
+I realize that contemplation of conspiracies are awkward, but in the
+case of remailers I think it is safe to assume intelligence agencies are
+involved in some way.  The only remaining question is how.
+</P>
+
+
+
+<H3>WHAT CAN BE DONE</H3>
+
+<P>
+I would like to enumerate several short-term and long-term ideas for how
+the remailer system can be improved and made less vulnerable to
+selective DoS and other attacks.
+</P>
+
+ <UL TYPE=DISC>
+
+
+
+ 
+ 
+   <LI> <B>RELIABILITY</B><BR>
+    Unreliable software and network connectivity provides a cover for
+    selective DoS and other attacks.  Remailer and client programmers,
+    and remailer operators, need to do everything possible to improve
+    the reliability of their systems and reduce lost mail, and to insure
+    their connectivity to other remailers.  The correct keys need to be
+    used by remailers which increasingly depend on repgp and remix.  It
+    is my opinion that anti-SPAM features in some remailers have grown
+    out of control and contribute to message loss, so these techniques
+    must be applied carefully and only to a necessary extent.  Remailers
+    need to provide clear feedback to operators on why mail is being
+    discarded, and operators need to pay careful attention to this
+    information.  Most of all, those involved in providing remailer
+    services (programmers, operators, etc.) need to become less
+    complacent about unreliability.  It is a significant problem and
+    security threat.<BR>
+
+    
+    <LI><B>KEYS</B><BR>
+    The habit of keeping the same remailer keys indefinitely represents
+    a significant security threat.  Keys should be replaced and
+    destroyed regularly, especially for remailers located in
+    institutions and other areas where people come and go.  Larger keys
+    should also be used when possible.<BR>
+
+
+    <LI><B>REMIX AT NYM-SERVERS</B><BR>
+    The remailers located at nym-servers need to support Remix-To.  Too
+    much information about reply-block size and count is leaked between
+    the nym-server's Cypherpunk and the first remailer.<BR>
+    
+    </UL>
+
+<H3>THE NEXT GENERATION</H3>
+
+<P>
+A few thoughts on what next generation remailers should address.
+</P>
+
+    <UL TYPE=DISC>
+
+
+
+    
+    
+    <LI>The idea of sending messages individually between remailers (and
+    even from/to individuals?) should be discarded.  Message packets
+    should be made smaller (1k perhaps, interleaved) or larger (2-10 meg
+    digests) and constructed in such a way that it is impossible to
+    remove one packet or message without detection and correction.
+    Multiple messages to a final destination might be sent in digests.
+    
+    <LI>An automatic system for detecting and replacing, possibly rerouting,
+    lost packets should be implemented.
+    
+    <LI>More random data (continuous if feasible) should be introduced to
+    cover the number and size of messages between locations.
+
+    <LI>The assumption that an attacker has a remailer's private key or is
+    able to decrypt its messages should be used in building a model
+    which, while not preventing some eavesdropping in such a
+    circumstance, prevents selective DoS.
+
+    <LI>Email as the preferred method of transfer between remailers should
+    be questioned.  Although it provides for greater cross-platform
+    interoperability, an encrypted direct connection between remailers,
+    with error detection and correction is needed.
+    
+    <LI>Remailer clients need the (optional) ability to connect to the
+    remailers directly, without going through SMTP and other servers,
+    and need to receive immediate feedback that the remailer received
+    the data.
+    
+    <LI>An automated and secure method for distributing and changing
+    remailer keys regularly, and a system for updating client
+    configuration (based on remailers' supported features) is needed.
+    
+    <LI>Remailers need to be less dependent on the DNS system to prevent
+    hijacking and extended downtime (such as when nym.alias.net lost its
+    domain for several months)
+
+</UL>
+
+<H3>IN CLOSING</H3>
+
+<P>
+I do not intend to imply that all lost mail is due to involvement of a
+third party.  Especially if you are new to remailers, realize that there
+are many mistakes which will legitimately cause remailers to discard
+messages.  By design they are quite unforgiving in this regard, and
+users should not jump to conclusions.
+</P>
+
+<P>
+I also wish to add that I still consider anonymous remailers to be one
+of the few methods on the net for achieving genuinely high levels of
+strong anonymity and security.  It is exactly because of this that I
+consider it plausible that they are the target of such a subtle and
+resource-intensive attack.
+</P>
+
+
+
+<HR>
+<P>Please send any questions or comments to <A
+href="mailto:webmaster@eff.org"><I>webmaster@eff.org</I></A></P>
+<DIV ALIGN="CENTER"><P><A href="/index.html">Return to</A> &nbsp; 
+<A href="/index.html"><IMG
+src="http://www.eff.org/Icons/home/efflogomini.gif" width="45" 
+height="30" align="MIDDLE" border="0" alt="EFF"></A> &nbsp; <A
+href="/index.html"> Welcome
+Page</A></P></DIV>
+</BODY></HTML>

@@ -1,0 +1,383 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- $Id: $ -->
+<HTML LANG="en-US">
+<HEAD>
+<META NAME="Distribution" CONTENT="Unrestricted, but access may be monitored">
+<META NAME="Notice" CONTENT="All Department of Defense telecommunications and automated information systems and related equipment are for the communication, transmission, processing, and storage of U.S. Government information only.  The systems and equipment are subject to authorized monitoring to ensure proper functioning, to protect against unauthorized use, and to verify the presence and performance of applicable security features.  Such monitoring may result in the acquisition, recording, and analysis of all data being communicated, transmitted, processed, or stored in this system by a user.  If monitoring reveals possible evidence of criminal activity, such evidence may be provided to law enforcement personnel.  Anyone using this system expressly consents to such monitoring.">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=ISO-8859-1">
+<LINK REV=MADE HREF="mailto:onion-info@itd.nrl.navy.mil">
+<LINK REL="stylesheet" HREF="./Style.css" TYPE="text/css">
+<TITLE>Onion Routing: Publications</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFEED8" TEXT="#000000"
+ LINK="#0000D0" VLINK="#765A3E" ALINK="#D00000">
+
+
+<BR><BR>
+<H1 ALIGN=CENTER><IMG SRC="./Images/Title.gif" WIDTH=620 HEIGHT=90
+ ALT="Onion Routing"></H1>
+<H1 ALIGN=CENTER>Publications</H1>
+
+<P>This is a complete list of all NRL publications on Onion Routing along
+with on-line copies where possible:
+
+
+<UL>
+<LI>Paul F. Syverson, Michael G. Reed, and David M. Goldschlag,
+"Onion Routing Access Configurations,"
+DISCEX 2000: Proceedings of the DARPA Information Survivability Conference
+and Exposition, Volume I Hilton Head, SC, IEEE CS Press, January 2000, pp. 34--40.
+[<A HREF="Publications/DISCEX-2000.ps">PostScript</a>]
+[<A HREF="Publications/DISCEX-2000.ps.gz">Gziped Postscript</A>]
+[<A HREF="Publications/DISCEX-2000.pdf">PDF</a>]
+<BLOCKQUOTE>
+Onion Routing is an infrastructure for private communication over a
+public network. It provides anonymous connections that are strongly
+resistant to both eavesdropping and traffic analysis. Thus it hides not
+only the data being sent, but who is talking to whom. Onion Routing's
+anonymous connections are bidirectional and near real-time, and can be
+used anywhere a socket connection can be used. Proxy aware
+applications, such as web browsing and e-mail, require no modification
+to use Onion Routing, and do so through a series of proxies. Other
+applications, such as remote login, can also use the system without
+modification. Access to an onion routing network can be configured in a
+variety of ways depending on the needs, policies, and facilities of
+those connecting. This paper describes some of these access
+configurations and also provides a basic overview of Onion Routing and
+comparisons with related work.
+</BLOCKQUOTE>
+
+<LI>Paul F. Syverson, Gene Tsudik, Michael G. Reed and Carl E. Landwehr,
+"Towards an Analysis of Onion Routing Security,"
+Workshop on Design Issues in Anonymity and Unobservability
+Berkeley, CA, July 2000.
+[<A HREF="Publications/WDIAU-2000.ps">PostScript</a>]
+[<A HREF="Publications/WDIAU-2000.ps.gz">Gziped Postscript</A>]
+[<A HREF="Publications/WDIAU-2000.pdf">PDF</a>]
+<BLOCKQUOTE>
+This paper presents a security analysis of Onion Routing, an
+application independent infrastructure for traffic-analysis-resistant
+and anonymous Internet connections. It also includes an overview of
+the current system design, definitions of security goals and new
+adversary models.
+</BLOCKQUOTE>
+
+<LI>Michael G. Reed and Paul F. Syverson, "Onion Routing," 
+Proceeding of AIPA '99, March 1999.
+[<A HREF="Publications/AIPA-1999.ps">PostScript</a>]
+[<A HREF="Publications/AIPA-1999.ps.gz">Gziped Postscript</A>]
+[<A HREF="Publications/AIPA-1999.pdf">PDF</a>]
+<BLOCKQUOTE>
+The primary goal of Onion Routing is to provide private, traffic
+analysis resistant communications over a public network at reasonable
+cost and efficiency.  Communications are intended to be private in the
+sense that both the public network itself and any eavesdropper on the
+network cannot determine the contents of messages flowing from Alice
+and Bob, and she cannot tell that Alice and Bob are communicating with
+each other.  A secondary goal is to provide anonymity to the sender
+and receiver, so that Alice may receive messages but be unable to
+identify the sender, even though she may be able to reply those
+messages.  For example, open source intelligence gathering via the web
+and pseudonym based email communications that hide the true identities
+of both sender and receiver.
+</BLOCKQUOTE>
+
+<LI>David M. Goldschlag, Michael G. Reed, and Paul F. Syverson,
+"Onion Routing for Anonymous and Private Internet Connections,"
+Communications of the ACM, vol. 42, num. 2, February 1999.
+[<A HREF="Publications/CACM-1999.ps">PostScript</a>]
+[<A HREF="Publications/CACM-1999.ps.gz">Gziped Postscript</A>] 
+[<A HREF="Publications/CACM-1999.pdf">PDF</a>]
+<BLOCKQUOTE>
+Preserving privacy means not only hiding the content of
+messages, but also hiding who is talking to whom (traffic analysis).
+Much like a physical envelope, the simple application of cryptography
+within a packet-switched network hides the messages being sent, but
+can reveal who is talking to whom, and how often.  Onion Routing is a
+general purpose infrastructure for private communication over a public
+network.  It provides anonymous connections
+that are strongly resistant to both eavesdropping and traffic
+analysis.  The connections are bidirectional, near real-time, and can
+be used for both connection-based and connectionless traffic.  Onion
+Routing interfaces with off the shelf software and systems through
+specialized proxies, making it easy to integrate into existing
+systems.  Prototypes have been running since July 1997.  As of this
+article's publication, the prototype network is processing more than 1
+million Web connections per month from more than six thousand IP
+addresses in twenty countries and in all six main top level
+domains.
+<P>Onion Routing operates by dynamically building anonymous
+connections within a network of real-time Chaum Mixes.  A Mix is
+a store and forward device that accepts a number of
+fixed-length messages from numerous sources, performs cryptographic
+transformations on the messages, and then forwards the messages to the
+next destination in a random order.  A single Mix makes tracking of a
+particular message either by specific bit-pattern, size, or ordering with
+respect to other messages difficult.  By routing through numerous
+Mixes in the network, determining who is talking to whom becomes even more
+difficult.  Onion Routing's network of core onion-routers (Mixes) is
+distributed,
+fault-tolerant, and under the control of multiple administrative
+domains, so no single onion-router can bring down the network or
+compromise a user's privacy, and cooperation between compromised
+onion-routers
+is thereby confounded.
+</BLOCKQUOTE>
+
+<LI>Michael G. Reed, Paul F. Syverson, and David M. Goldschlag,
+"Anonymous Connections and Onion Routing," IEEE
+Journal on Selected Areas in Communication Special Issue on Copyright
+and Privacy Protection, 1998.  [<A
+HREF="./Publications/JSAC-1998.ps">Postscript</A>] [<A
+HREF="./Publications/JSAC-1998.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/JSAC-1998.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+Onion Routing is an infrastructure for private communication over a
+public network.  It provides anonymous connections that are strongly
+resistant to both eavesdropping and traffic analysis.  Onion routing's
+anonymous connections are bidirectional and near real-time, and can be
+used anywhere a socket connection can be used. (In some contexts not
+even socket connections are needed to use onion routing.) Any
+identifying information must be in the data stream carried over an
+anonymous connection.  An onion is a data structure that is treated as
+the destination address by onion routers; thus, it is used to establish
+an anonymous connection. Onions themselves appear differently to each
+onion router as well as to network observers. The same goes for data
+carried over the connections they establish.  Proxy aware applications,
+such as web browsing and email, require no modification to use onion
+routing, and do so through a series of proxies. A prototype of onion
+routing is running in our lab. This paper describes anonymous
+connections and their implementation using onion routing. This paper
+also describes several application proxies for onion routing, as well
+as configurations of onion routing networks.
+</BLOCKQUOTE>
+
+<LI>Paul F. Syverson, Michael G. Reed, and David M. Goldschlag,
+"Private Web Browsing," Journal of Computer Security Special Issue on
+Web Security, Volume 5, Number 3, 1997, pp. 237-248.  [<A
+HREF="./Publications/JCS-1997.ps">Postscript</A>] [<A
+HREF="./Publications/JCS-1997.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/JCS-1997.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+This paper describes a communications primitive, <EM>anonymous
+connections</EM>, that support bidirectional and near real-time
+channels that are resistant to both eavesdropping and traffic
+analysis.  The connections are made anonymous, although communication
+need not be.  These anonymous connections are versatile and support
+private use of many different Internet services.  For our purposes,
+privacy means maintaining the confidentiality of both the data stream
+and the identity of communicating parties.  These are both kept
+confidential from network elements as well as external observers.
+Private Web browsing is achieved by unmodified Web browsers using
+anonymous connections by means of HTTP proxies.  Private Web browsing
+may be made anonymous too by a specialized proxy that removes
+identifying information from the HTTP data stream.  This article
+specifies anonymous connections, describes our implementation, and
+discusses its application to Web browsing via HTTP proxies.
+</BLOCKQUOTE>
+
+<LI>David M. Goldschlag, Michael G. Reed, and Paul F. Syverson,
+"Privacy on the Internet," INET '97, Kuala Lumpur, Malaysia, June
+1997.  [<A HREF="./Publications/INET-1997.html">HTML</A>]
+
+<BLOCKQUOTE>
+The World Wide Web is rapidly becoming an important tool for modern
+day communication and commerce.  But electronic messages sent over the
+Internet can be easily snooped and tracked revealing who is talking to
+whom and what they are talking about.  Is privacy important and how
+can it be guaranteed?  This paper describes how a freely available
+system, onion routing, can be used to provide privacy for a wide
+variety of Internet services, including Virtual Private Networks, Web
+browsing, e-mail, remote login, and electronic cash.
+</BLOCKQUOTE>
+
+<LI>Michael G. Reed, Paul F. Syverson, and David M. Goldschlag,
+"Protocols using Anonymous Connections: Mobile Applications," Security
+Protocols, 5th International Workshop Proceedings, B. Christianson,
+B. Crispo, M. Lomas, and M. Roe (editors), Springer-Verlag LLNCS 1361,
+1998, pp. 13-23.  [<A
+HREF="./Publications/WSP-1997.ps">Postscript</A>] [<A
+HREF="./Publications/WSP-1997.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/WSP-1997.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+This paper describes security protocols that
+use anonymous channels, which do not reveal their endpoints,
+as primitive, much in the way that key distribution protocols take
+encryption as primitive. This abstraction allows us to focus on
+high level security goals of these protocols much as abstracting away
+from encryption clarifies and emphasizes high level security goals
+of key distribution protocols. The protocols described are
+for mobile applications that protect
+the location information of the participating principals.
+</BLOCKQUOTE>
+
+<LI>Paul F. Syverson, David M. Goldschlag, Michael G. Reed, "Anonymous
+Connections and Onion Routing," Proceedings of the 18th Annual
+Symposium on Security and Privacy, IEEE CS Press, Oakland, CA, May
+1997, pp. 44-54.  [<A
+HREF="./Publications/SSP-1997.ps">Postscript</A>] [<A
+HREF="./Publications/SSP-1997.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/SSP-1997.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+Onion Routing provides anonymous connections that are strongly
+resistant to both eavesdropping and traffic analysis. Unmodified
+Internet applications can use these anonymous connections by means of
+proxies. The proxies may also make communication anonymous by removing
+identification from the data stream.  Onion Routing has been
+implemented on Sun Solaris 2.4 with proxies for Web browsing, remote
+logins, and e-mail.  This paper's contribution is a detailed
+specification of the implemented onion routing system, a vulnerability
+analysis base on this specification, and performance results.
+</BLOCKQUOTE>
+
+<LI>David M. Goldschlag, Michael G. Reed, and Paul F. Syverson,
+"Internet Communication Resistant to Traffic Analysis,"  1997 NRL
+Review, Washington, DC, April 1997, pp. 109-111.
+
+<BLOCKQUOTE>
+Determining who is talking to whom (called traffic analysis) is an
+important source of intelligence information.  As military grade
+communication devices increasingly depend on the public communications
+infrastructure, it is important to use that infrastructure in ways
+that are resistant to traffic analysis.  It may also be useful to
+communicate anonymously, for example when gathering intelligence from
+public databases.  We describe bidirectional and real-time <EM>Anonymous
+Connections</EM> that are strongly resistant to eavesdropping and traffic
+analysis attacks by both insiders and outsiders.  If necessary,
+communication is made anonymous by removing identifying information
+from the data stream.  These anonymous connections have been
+prototyped in a system that protects the privacy of communication over
+the Internet and, in particular, the World Wide Web.  Anonymous
+connections can protect both identity and location in many switched
+communication systems, such as wired, cellular, or satellite phone
+networks.
+</BLOCKQUOTE>
+
+<LI>Michael G. Reed, Paul F. Syverson, and David M. Goldschlag,
+"Proxies for Anonymous Routing," Proceedings of the 12th Annual
+Computer Security Applications Conference, IEEE CS Press, San Diego,
+CA, December 1996, pp. 95-104.  [<A
+HREF="./Publications/ACSAC-1996.ps">Postscript</A>] [<A
+HREF="./Publications/ACSAC-1996.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/ACSAC-1996.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+Using traffic analysis, it is possible to infer who is talking to whom
+over a public network.  This paper describes a flexible communication
+infrastructure, Onion Routing, which is resistant to traffic
+analysis.  Onion Routing lives just beneath the application layer, and
+is designed to interface with a wide variety of unmodified Internet
+services by means of proxies.  Onion Routing has been implemented on
+Sun Solaris 2.4; in addition, proxies for World Wide Web browsing (HTTP),
+remote logins (RLOGIN), e-mail (SMTP), and file transfers (FTP) have been
+implemented.
+<P>
+Onion Routing provides application independent, real-time, and
+bi-directional anonymous connections that are resistant to both
+eavesdropping and traffic analysis.  Applications making use of Onion
+Routing's anonymous connections may (and usually should) identify
+their users over the anonymous connection.  User anonymity may be
+layered on top of the anonymous connections by removing identifying
+information from the data stream.  Our goal here is anonymous
+connections, not anonymous communication.  The use of a packet
+switched public network should not automatically reveal who is talking
+to whom.  This is the traffic analysis that Onion Routing complicates.
+</BLOCKQUOTE>
+
+<LI>David M. Goldschlag, Michael G. Reed, and Paul F. Syverson,
+"Hiding Routing Information," Information Hiding, R. Anderson
+(editor), Springer-Verlag LLNCS 1174, 1996, pp. 137-150.  [<A
+HREF="./Publications/IH-1996.ps">Postscript</A>] [<A
+HREF="./Publications/IH-1996.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/IH-1996.pdf">PDF</A>]
+
+<BLOCKQUOTE>
+This paper describes an architecture, Onion Routing, that limits a
+network's vulnerability to traffic analysis. The architecture provides
+anonymous socket connections by means of proxy servers. It provides
+real-time, bi-directional, anonymous communication for any protocol
+that can be adapted to use a proxy service. Specifically, the
+architecture provides for bi-directional communication even though
+no-one but the initiator's proxy server knows anything but previous
+and next hops in the communication chain. This implies that neither
+the respondent nor his proxy server nor any external observer need
+know the identity of the initiator or his proxy server. A prototype of
+Onion Routing has been implemented. This prototype works with HTTP
+(World Wide Web) proxies. In addition, an analogous proxy for TELNET
+has been implemented. Proxies for FTP and SMTP are under development.
+</BLOCKQUOTE>
+
+<LI>Original (Old) Onion Routing briefing slides. [<A
+HREF="./Publications/Briefing-1996.ps">Postscript</A>] [<A
+HREF="./Publications/Briefing-1996.ps.gz">Gziped Postscript</A>] [<A
+HREF="./Publications/Briefing-1996.pdf">PDF</A>]
+</UL>
+
+<HR><BR>
+<TABLE>
+<TR>
+<TD>
+<UL>
+<LI><A HREF="Summary.html">Onion Routing Executive Summary</A>
+<LI><A HREF="Policy.html">NRL Onion Routing Policy</A>
+<LI><A HREF="Problem.html">The Traffic Analysis Problem...</A>
+<LI><A HREF="Solution.html">The Onion Routing Solution!</A>
+<LI><A HREF="Personnel.html">Onion Routing Personnel</A>
+<LI><A HREF="Publications.html">Onion Routing Publications</A>
+<LI><A HREF="Prototype.html">Onion Routing First Generation Prototype</A>
+<LI><A HREF="TNG.html">Onion Routing Next Generation System</A>
+<LI><A HREF="Mailing.html">Onion Routing Mailing Lists</A>
+<LI><A HREF="Publicity.html">Onion Routing Publicity</A>
+</UL>
+</TD>
+<TD>
+<UL>
+<LI><A HREF="Analysis.html">Onion Routing Analysis</A>
+<LI><A HREF="Vis.html">Onion Routing Visualizations</A>
+<LI><A HREF="Sponsors.html">Our Sponsors</A>
+<LI><A HREF="Related_Research.html">Related Privacy Research</A>
+<LI><A HREF="Related_Publications.html">Related Publications</A>
+<LI><A HREF="Other_Sites.html">Other Privacy Sites</A>
+<LI><A HREF="Tests.html">Good Privacy Test Sites</A>
+<LI><A HREF="Archives.html">NRL Onion Routing Archives</A>
+<LI><A HREF="Humor.html">Some Onion Humor</A>
+</UL>
+</TD>
+</TR>
+</TABLE>
+
+
+<A NAME="Closing_Block"><BR></A>
+<HR>
+<ADDRESS>
+<!-- DO NOT REMOVE 1 -->
+Page maintained by Onion-Info (<A HREF="mailto:onion-info@itd.nrl.navy.mil">onion-info@itd.nrl.navy.mil</A>)
+<BR>
+<? echo "Last updated on ".date ("l, F d, Y @ H:i:s", getlastmod ());
+   echo " (EDT)\n"; ?>
+</ADDRESS>
+<TABLE><TR>
+<TD><A HREF="./Privacy.html"><IMG SRC="./Images/Peep.gif" WIDTH=48 HEIGHT=93 ALT="Privacy Statement" BORDER=0></TD>
+<TD><STRONG>NOTICE:</STRONG>
+<EM><FONT SIZE="-1">All Department of Defense telecommunications and
+automated information systems and related equipment are for the
+communication, transmission, processing, and storage of
+U.S. Government information only.  The systems and equipment are
+subject to authorized monitoring to ensure proper functioning, to
+protect against unauthorized use, and to verify the presence and
+performance of applicable security features.  Such monitoring may
+result in the acquisition, recording, and analysis of all data being
+communicated, transmitted, processed, or stored in this system by a
+user.  If monitoring reveals possible evidence of criminal activity,
+such evidence may be provided to law enforcement personnel.  Anyone
+using this system expressly consents to such
+monitoring.<BR></FONT></EM></TD>
+<TD><A HREF="http://www.nrl.navy.mil/"><IMG SRC="./Images/NRL_Seal.gif" ALT="NRL Seal" WIDTH=101 HEIGHT=100 BORDER=0></A></TD>
+</TR></TABLE>
+
+</BODY>
+</HTML>

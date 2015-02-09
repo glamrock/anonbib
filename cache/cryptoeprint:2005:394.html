@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US"><head><title>Cryptology ePrint Archive</title>
+<link rev="made" href="mailto:eprint-admin%40iacr.org" />
+</head><body bgcolor="white"><h2>Cryptology ePrint Archive: Report 2005/394</h2><p />
+<b>Obfuscated Ciphertext Mixing</b><p />
+<i>Ben Adida and Douglas Wikström</i><p />
+<b>Abstract. </b>Mixnets are a type of anonymous channel composed of a handful of trustees that, each in turn, shuffle and rerandomize a batch
+ciphertexts. For applications that require verifiability, each
+trustee provides a proof of correct mixing. Though mixnets have
+recently been made quite efficient, they still require secret
+computation and proof generation after the mixing process.
+  
+We introduce and implement Obfuscated Ciphertext Mixing, the
+obfuscation of a mixnet program. Using this technique, all proofs
+can be performed before the mixing process, even before the
+inputs are available. In addition, the mixing program does not need
+to be secret: anyone can publicly compute the shuffle (though
+not the decryption). We frame this functionality in the strongest
+obfuscation setting proposed by Barak et. al., tweaked for
+the public-key setting. For applications where the secrecy of the
+shuffle permutation is particularly important (e.g. voting), we also
+consider the Distributed Obfuscation of a Mixer, where
+multiple trustees cooperate to generate an obfuscated mixer program
+such that no single trustee knows the composed shuffle permutation.
+  
+<P>
+<p />
+<b>Category / Keywords. </b>mixnet, program obfuscation<p />
+<b>Publication Info. </b>in submission<p />
+<b>Date: </b>received 2 Nov 2005, last revised 21 Nov 2005<p />
+<b>Contact author: </b>ben at mit edu<p />
+<b>Available formats: </b><A HREF="/2005/394.pdf">PDF</A> | <A HREF="/cgi-bin/cite.pl?entry=2005/394">BibTeX Citation</A>
+<p />
+<b>Comment. </b>revised with formalized security definitions, framing in the obfuscation model, and more detailed proofs. (Added author names, which were missing briefly from second revision.)
+<p />
+<p /><hr />[ <A HREF="/index.html">Cryptology ePrint archive</A> ]
+</body></html>

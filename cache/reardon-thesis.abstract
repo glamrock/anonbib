@@ -1,0 +1,468 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>UWSpace: Improving Tor using a TCP-over-DTLS Tunnel</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <link rel="stylesheet" href="/UW2col.css.jsp" type="text/css" />
+        <link rel="stylesheet" href="/custom.css.jsp" type="text/css" />
+        <link rel="stylesheet" href="/styles.css.jsp" type="text/css" />
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+	<script type="text/javascript" src="/utils.js"></script>
+	<script type="text/javascript" LANGUAGE="JavaScript">
+		<!-- Begin
+			function popUp(URL) 
+			{
+				day = new Date();
+				id = day.getTime();
+				eval("page" + id + " = window.open(URL, '" + id + "', 'toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=550,height=470,left = 301,top = 132');");
+			}
+		// End -->
+	</script>
+
+    </head>
+    
+	
+    
+    <body class="DSPACE" style="width:100%">
+
+<!--   THE UW STANDARD HEADER  -->
+<div style="border-bottom: 2px solid #bbbbbb; background-color: #ffffff; width:100%; height:78px; margin-bottom: 1px; padding-bottom: 1px;">
+  <div id="clfbar" style="background-color: #ffffff; width:99%">
+    <div id="uwlogo"> <a href="http://www.uwaterloo.ca"> <img src="/image/uwlogo.gif" alt="Link to the University of Waterloo home page" width="105" height="70" border="0" /> </a> </div>
+<div id="searchbox">
+  <!-- form script is located on info, there are options though. Information is at http://web.uwaterloo.ca/clftemplate/search.html -->
+<form action="http://testtube.uwaterloo.ca/trellis/header_search.cfm" method="post" name="search" id="search" title="search" dir="ltr" lang="en">
+   				<select name="stype">
+				  <!-- <option value="trellis" selected="selected">TRELLIS catalogue (Keyword)</option>-->
+   				  <option value="lib" selected="selected">Library Web site</option>
+   				  <option value="uw">Search all of UW</option>
+   				  <option value="uwdir">Search for a person</option>
+	          </select>
+    			<input name="searchterm" type="text" id="searchterm" class="google" accesskey="s" tabindex="2" size="20" />  
+				<input name="submit" type="submit" id="submit" class="google" tabindex="3" value="Search" />
+		  </form>
+</div>
+
+    <div id="wordmark" style="background-color: #ffffff;">	  
+	  <h1>    
+		<a href="http://uwspace.uwaterloo.ca"><img src="/image/title.gif" alt="Link to the UWSpace Home Page" /></a>
+	  </h1>
+	  
+    </div>
+  </div>
+</div>
+<!--   TO HERE    -->
+
+<!--             Link to Library Home page                 -->
+	<div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="2">
+			  <tr>
+			<td style="background-color:#93432F; color:#FFFFFF; font-size:110%;"><div style="padding: 4px; border: solid 0 #93432F; border-bottom-width:1px; font-size:110%; font-weight:bolder;"><a href="http://library.uwaterloo.ca/" style=" color:#FFFFFF;">Library 
+			Home Page</a>&nbsp;>&nbsp;<a href="http://uwspace.uwaterloo.ca" style=" color:#FFFFFF;">UWSpace</a></div></td>
+		  </tr>
+		</table>
+	</div>
+<!--             TO HERE                       -->
+
+        
+
+
+
+
+
+        
+
+        
+        <table class="centralPane" width="100%" border="0" cellpadding="3" cellspacing="1">
+
+            
+            <tr valign="top">
+
+            
+
+            <td class="navigationBar">
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form method="get" action="/simple-search">
+
+
+  
+  <table width="100%" class="searchBox" style="background: #eeeeee;">
+    <tr>
+      <td>
+        <table width="100%" border="0" cellspacing="0" >
+          <tr>
+            <td class="searchBoxLabel" style="background: #eeeeee;"><label for="tequery">Search&nbsp;UWSpace</label></td>
+          </tr>
+          <tr>
+            <td class="searchBoxLabelSmall" valign="middle" nowrap="nowrap" style="background: #eeeeee;">
+              
+              <input type="text" name="query" id="tequery" size="8"/><input type="submit" name="submit" value="Go" />
+              <br/><a href="/advanced-search">Advanced Search</a>
+
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+
+
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+  <tr class="navigationBarItem">
+    <td>
+      <!--<img alt="" src="/image/arrow.gif" width="16" height="16"/>-->
+	   <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/">Home</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td nowrap="nowrap" colspan="2" class="navigationBarSublabel">Browse</td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/community-list">Communities<br/>&amp;&nbsp;Collections</a>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16" />
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/browse-title">Titles</a>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/browse-author">Authors</a>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16" />
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/browse-subject">Subjects</a>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/browse-date">By Date</a>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr>
+    <td nowrap="nowrap" colspan="2" class="navigationBarSublabel">Sign on to:</td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/subscribe">Receive email<br/>updates</a>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+
+		<a href="https://uwspace.uwaterloo.ca:443/mydspace">My UWSpace</a><br/>
+
+      <small>registered users</small>
+    </td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <a href="/profile">Edit Profile</a>
+    </td>
+  </tr>
+
+
+
+  <tr>
+    <td colspan="2">&nbsp;</td>
+  </tr>
+
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+    <td nowrap="nowrap" class="navigationBarItem">
+      <script type="text/javascript">
+<!-- Javascript starts here
+document.write('<a href="#" onClick="var popupwin = window.open(\'/help/index.html\',\'dspacepopup\',\'height=600,width=550,resizable,scrollbars\');popupwin.focus();return false;">Help<\/a>');
+// -->
+</script><noscript><a href="/help/index.html" target="dspacepopup">Help</a></noscript>
+    </td>
+  </tr>
+
+<!-- GOT RID OF THE ABOUT DSPACE LINK HERE
+  <tr class="navigationBarItem">
+    <td>
+      <img alt="" src="/image/arrow.gif" width="16" height="16"/>
+    </td>
+	<td nowrap="nowrap" class="navigationBarItem">
+      <a href="http://www.dspace.org/">About UWSpace</a>
+    </td>
+  </tr>
+-->
+
+</table>
+
+            </td>
+
+            
+
+            
+            
+            
+            <td class="pageContents" width="100%">
+
+                
+
+                
+
+
+
+
+  
+
+
+<p class="locationBar">
+
+<a href="/">UWSpace</a>&nbsp;&gt;
+<br/>
+<a href="/handle/10012/1">University of Waterloo</a>&nbsp;&gt;
+<br/>
+<a href="/handle/10012/6">Electronic Theses and Dissertations (UW)</a>&nbsp;&gt;
+
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <table align="center" class="miscTable">
+        <tr>
+
+            <td class="evenRowEvenCol" align="center">
+                
+                <strong>Please use this identifier to cite or link to this item:
+                <code>http://hdl.handle.net/10012/4011</code></strong>
+            </td>
+
+
+        </tr>
+    </table>
+    <br />
+
+    
+    <center><table class="itemDisplayTable">
+<tr><td class="metadataFieldLabel">Title:&nbsp;</td><td class="metadataFieldValue">Improving Tor using a TCP-over-DTLS Tunnel</td></tr>
+<tr><td class="metadataFieldLabel">Authors:&nbsp;</td><td class="metadataFieldValue">Reardon, Joel</td></tr>
+<tr><td class="metadataFieldLabel">Keywords:&nbsp;</td><td class="metadataFieldValue">Privacy<br />Tor</td></tr>
+<tr><td class="metadataFieldLabel">Approved Date:&nbsp;</td><td class="metadataFieldValue">24-Sep-2008 </td></tr>
+<tr><td class="metadataFieldLabel">Date Submitted:&nbsp;</td><td class="metadataFieldValue"></td></tr>
+<tr><td class="metadataFieldLabel">Abstract:&nbsp;</td><td class="metadataFieldValue">The Tor network gives anonymity to Internet users by relaying their traffic through the world over a variety of routers. This incurs latency, and this thesis first explores where this latency occurs. Experiments discount the latency induced by routing traffic and computational latency to determine there is a substantial component that is caused by delay in the communication path. We determine that congestion control is causing the delay.
+
+Tor multiplexes multiple streams of data over a single TCP connection. This is not a wise use of TCP, and as such results in the unfair application of congestion control. We illustrate an example of this occurrence on a Tor node on the live network and also illustrate how packet dropping and reordering cause interference between the multiplexed streams.
+
+Our solution is to use a TCP-over-DTLS (Datagram Transport Layer Security) transport between routers, and give each stream of data its own TCP connection. We give our design for our proposal, and details about its implementation. Finally, we perform experiments on our implemented version to illustrate that our proposal has in fact resolved the multiplexing issues discovered in our system performance analysis. The future work gives a number of steps towards optimizing and improving our work, along with some tangential ideas that were discovered during research.
+
+Additionally, the open-source software projects latency_proxy and libspe, which were designed for our purposes but programmed for universal applicability, are discussed.</td></tr>
+<tr><td class="metadataFieldLabel">Program:&nbsp;</td><td class="metadataFieldValue">Computer Science</td></tr>
+<tr><td class="metadataFieldLabel">Department:&nbsp;</td><td class="metadataFieldValue">School of Computer Science</td></tr>
+<tr><td class="metadataFieldLabel">Degree:&nbsp;</td><td class="metadataFieldValue">Master of Mathematics</td></tr>
+<tr><td class="metadataFieldLabel">URI:&nbsp;</td><td class="metadataFieldValue"><a href="http://hdl.handle.net/10012/4011">http://hdl.handle.net/10012/4011</a></td></tr>
+<tr><td class="metadataFieldLabel">Appears in Collections:</td><td class="metadataFieldValue"><a href="/handle/10012/16"> Faculty of Mathematics Theses and Dissertations </a><br/><a href="/handle/10012/6">Electronic Theses and Dissertations (UW)</a><br/></td></tr>
+</table></center><br/>
+<table align="center" class="miscTable"><tr><td class="evenRowEvenCol"><p><strong>Files in This Item:</strong></p>
+<table cellpadding="6"><tr><th id="t1" class="standard">File</th>
+<th id="t2" class="standard">Description</th>
+<th id="t3" class="standard">Size</th><th id="t4" class="standard">Format</th></tr>
+<tr><td headers="t1" class="standard"><a target="_blank" href="/bitstream/10012/4011/1/thesis.pdf">thesis.pdf</a></td><td headers="t2" class="standard"></td><td headers="t3" class="standard">3.19 MB</td><td headers="t4" class="standard">Adobe PDF</td><td class="standard" align="center"><a target="_blank" href="/bitstream/10012/4011/1/thesis.pdf">View/Open</a></td></tr></table>
+</td></tr></table>
+<br/><br/>
+<table align="center" class="attentionTable"><tr>
+<td class="attentionCell"><p><strong>This item is protected by original copyright</strong></p>
+<div align="center" class="standard"><strong><a target="_blank" href="/retrieve/9049/license.txt">View Licence</a></strong></div></td></tr></table>
+
+
+
+    <div align="center">
+
+    <form method="get" action="/handle/10012/4011">
+        <input type="hidden" name="mode" value="full"/>
+        <input type="submit" name="submit_simple" value="Show full item record" />
+    </form>
+
+    </div>
+
+
+
+
+    
+
+    
+
+    <p class="submitFormHelp">All items in UWSpace are protected by copyright, with all rights reserved.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    
+                    <p>&nbsp;</p>
+                </td>
+
+            
+
+            </tr>
+
+            
+
+             <tr class="pageFooterBar">
+                <td colspan="2" class="pageFootnote">
+                    <table class="pageFooterBar" width="100%">
+						<!-- UW standard footer -->
+						<tr>
+							<td>
+								<div id="departmentaddress"> <a href="http://www.lib.uwaterloo.ca/develop/index.html"><img src="/image/littlecampaignlogo.gif" alt="Campaign Waterloo Logo - Go to Library Campaign page" border="0" class="campaignlogo" width="128" height="25" /></a>
+  <p> University of Waterloo Library <br />
+    200 University Avenue West<br />
+    Waterloo, Ontario, Canada N2L 3G1<br />
+    519 888 4883 <br />
+    <br />
+    <a href="http://www.lib.uwaterloo.ca/keyinfo/keyphone.html">contact us</a> | <a href="http://www.lib.uwaterloo.ca/forms/webops.html">give us feedback</a> | <a href="http://www.lib.uwaterloo.ca">http://www.lib.uwaterloo.ca</a> |  <a href="http://www.uwaterloo.ca/copyright.html">&copy; 2006
+    University of Waterloo</a> <br />
+<br />
+  </p>
+</div>
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-384382-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+
+							</td>
+						</tr>
+						<!-- end UW footer -->
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

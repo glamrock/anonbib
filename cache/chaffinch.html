@@ -1,0 +1,374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>Chaffinch: Confidentiality in the Face of Legal Threats</TITLE>
+</HEAD>
+
+<BODY>
+
+<CENTER>
+<h1>Chaffinch:<br>Confidentiality in the Face of Legal Threats</h1>
+<p>Richard Clayton and George Danezis</p>
+<ADDRESS>University of Cambridge, Computer Laboratory, Gates Building, JJ Thompson Avenue, Cambridge CB3 0FD, United Kingdom</ADDRESS>
+<p></p>
+<PRE>{ richard.clayton, george.danezis }@cl.cam.ac.uk</PRE>
+</CENTER>
+
+<BLOCKQUOTE>
+<B>Abstract.</B> We present the design and rationale of a practical system for passing confidential messages. The mechanism is an adaptation of Rivest's &quot;chaffing and winnowing&quot;, which has the legal advantage of using authentication keys to provide privacy. We identify a weakness in Rivest's particular choice of his &quot;package transform&quot; as an &quot;all-or-nothing&quot; element within his scheme. We  extend the basic system to allow the passing of several messages concurrently. Only some of these messages need be divulged under legal duress, the other messages will be plausibly deniable. We show how this system may have some resilience to the type of legal attack inherent in the UK's Regulation of Investigatory Powers (RIP) Act.
+</BLOCKQUOTE>
+
+<h2>1. <a NAME="SecIntroduction"></a>Introduction</h2>
+
+<p>We present a system called &quot;Chaffinch&quot; for passing confidential messages using shared secret keys. The basic mechanism is Ron Rivest's &quot;chaffing and winnowing&quot;&nbsp;[<a HREF="#Chaffing">10</a>], which uses authentication primitives to provide confidentiality.</p>
+<p>The Chaffinch system allows several further messages to be steganographically concealed behind the main message. This allows cover traffic to be divulged to any authorities who wish to inspect the confidential information, without compromising the hidden material. The system is evaluated not only in terms of the traditional threat to confidentiality, eavesdroppers with significant computing power, but also in terms of its interaction with the UK's Regulation of Investigatory Powers (RIP) Act&nbsp;[<a HREF="#RIP">13</a>], one of the first laws to attempt to engage with cryptography.</p>
+<p>Section&nbsp;<a HREF="#SecChaffing">2</a> of this paper discusses the background to &quot;chaffing and winnowing&quot;. In particular, we identify a weakness in Rivest's suggestion that his &quot;package transform&quot; should be used as an &quot;all-or-nothing transform&quot; on a message. This section also provides an overview of the relevant parts of the RIP Act.</p>
+<p>Section&nbsp;<a HREF="#SecDesign">3</a> provides a high-level description of the Chaffinch design. Section&nbsp;<a HREF="#SecDetail">4</a> covers a number of detailed design decisions that have been incorporated into the Chaffinch system. Finally, Section&nbsp;<a HREF="#SecKeyhand">5</a> covers the issues relating to secret keys and how best to manage the keys associated with Chaffinch communications.</p>
+
+<h2>2. <a NAME="SecBackground"></a>Background</h2>
+
+<h3>2.1 <a NAME="SecChaffing"></a>Chaffing and Winnowing</h3>
+
+<p>Chaffing and winnowing was proposed by Rivest&nbsp;[<a HREF="#Chaffing">10</a>] as a way of providing confidentiality using only authentication primitives. In the basic scheme, a message is split into many equal sized packets and a valid MAC is appended to each. Some other random packets are also generated, but further random values are associated with them instead of correctly calculated MACs. The two sets of packets are intermingled and transmitted to the receiver. Anyone who holds the authentication key for the MAC values can recognise the good packets and distinguish them from the random material. Anyone else eavesdropping upon the data stream will be unable to determine which of the possible selection of packets will reveal the message. Rivest called the random packets &quot;chaff&quot; and the process of separating the true message &quot;winnowing&quot;, by analogy with the harvesting task of separating the wheat from the chaff.</p>
+<p>There is an obvious attack on this simple scheme, whereby an eavesdropper could select packets from the data stream based on the likelihood that they fit well with the packets already selected. There is also an obvious difficulty in sending chunks of information in the clear since natural language text can be easily distinguished from random material. These attacks are not applicable where single bits are sent -- but this is hugely inefficient if a very large MAC accompanies each bit. Rivest therefore proposed the use of his &quot;package transform&quot;&nbsp;[<a HREF="#PTransform">11</a>] to produce a &quot;packed message&quot; with the two desirable properties that it was not practical to unpack it without having the whole message available and secondly that it would be statistically indistinguishable from random noise.</p>
+<p>Rivest also pointed out that the &quot;chaffing&quot; operation of adding the random noise does not require knowledge of the MAC key and can even be performed by a third party, thus reinforcing the case that this system is not an encryption system in the usual sense of the word.</p>
+<p>The basic idea was extended in two ways relevant to this work. Firstly, Rivest observed that the wheat of one participant might be used as the chaff for another. If two valid streams of packets are multiplexed together then the recipients will automatically discard the packets that they cannot authenticate and be left with the messages that were sent to them. The second observation is that more than one stream of packets can be mixed together by one participant in such a way that the presence of any or all messages can be denied.</p>
+<p>There have been only a handful of previous implementations of &quot;chaffing and winnowing&quot;, most written in Perl&nbsp;[<a HREF="#Chaffe">2</a>,<a HREF="#Chaffwin">12</a>]. These programs have just been proof-of-concept systems or have omitted such stages as a package-transform -- leaving them open to attack.</p>
+
+<h3>2.2 <a NAME="SecTransform"></a>The Package Transform</h3>
+
+<p>As already observed, in order to hide patterns in the plaintext that could help an attacker reconstruct the message by accumulating sections that fit, an &quot;all-or-nothing transform&quot; needs to be used. Rivest's original &quot;chaffing and winnowing&quot; paper suggested that his &quot;Package Transform&quot;&nbsp;[<a HREF="#PTransform">11</a>] would be suitable.</p>
+<p>This transform has some desirable properties. Although keys are used in the transform, it is not a cipher because the keys are not secret. Anyone with a copy of the transformed message can immediately convert it back into plaintext. However, it is infeasible to do this conversion or indeed to obtain any information at all about the original message, without having the entire transformed message available. This is exactly the property that &quot;chaffing and winnowing&quot; requires, since it means that an attacker has to guess exactly which sections of the data stream correspond to the message in order to get a decoding that generates anything other than random bits.</p>
+<p>The message transform described by Rivest works as follows: consider <i>m<sub>1</sub></i>, <i>m<sub>2</sub></i> ... <i>m<sub>s</sub></i> to be the plaintext blocks, <i>E</i> an encryption function and <i>K'</i> a randomly chosen key. Then the encrypted blocks <i>m'<sub>i</sub></i> are calculated to be:</p>
+<blockquote>
+<p><i>m'<sub>i</sub></i> = <i>m<sub>i</sub></i> <B>xor</B> <i>E</i>(<i>K'</i>, <i>i</i>) for <i>i</i> = 1, ... ,<i>s</i></p>
+</blockquote>
+<p>The value of <i>K'</i> is transmitted to the receiver by sending the extra value <i>M</i>:</p>
+<blockquote>
+<p><i>M</i> = <i>K'</i> <B>xor</B> <i>h<sub>1</sub></i> <B>xor</B> <i>h<sub>2</sub></i> <B>xor</B> ... <B>xor</B> <i>h<sub>s</sub></i></p>
+</blockquote>
+<p>where:</p>
+<blockquote>
+<p><i>h<sub>i</sub></i> = <i>E</i>(<i>K<sub>0</sub></i>, <i>m'<sub>i</sub></i> <B>xor</B> <i>i</i>) for <i>i</i> = 1, ... , <i>s</i></p>
+</blockquote>
+<p>and <i>K<sub>0</sub></i> is a publicly known system wide key.</p>
+<p>The receiver will have all of the <i>m'<sub>i</sub></i> values along with <i>M</i>. They can retrieve <i>K'</i> by computing the values of <i>h<sub>i</sub></i> and XORing them together. Once <i>K'</i> is known this can then be used to recover the values for <i>m<sub>i</sub></i>.</p>
+<p>The security of Rivest's &quot;package transform&quot; and other &quot;all-or-nothing transforms&quot; have been investigated by Anand Desai [<a HREF="#Desai">7</a>] and also commented upon by Mihir Bellare and Alexandra Boldyreva [<a HREF="#Bellare">5</a>]. They concentrated on whether the transform is secure against exhaustive key search, and in particular in checking that such searches are slowed down by a factor that is equal to the number of blocks of ciphertext.</p>
+<p>However, this is not quite the way in which the all-or-nothing transform is being used within a &quot;chaffing and winnowing&quot; system. In particular, Rivest's package transform does not create as much work as expected for an attacker who is trying a brute force attack to distinguish between message and chaff.</p>
+<p>The problem is that the values for <i>h<sub>i</sub></i> can be calculated once and then reused for any trial arrangement that incorporates the same section of the message in the same position. In particular, if the attacker has just tried the selection <i>S<sub>1</sub></i>, <i>S<sub>2</sub></i>, ... , <i>S<sub>n</sub></i> and now tries an alternative packet in position <i>S<sub>i</sub></i> then all except one of the <i>h<sub>i</sub></i> values can be reused in extracting the new trial value for <i>K'</i>.</p>
+<p>What is necessary is for the value of <i>h<sub>i</sub></i> to differ, depending upon the exact choice of message sections that has been made. A simple variation of the Rivest scheme that achieves this would be to calculate:</p>
+<blockquote>
+<p><i>h<sub>i</sub></i> = <i>E</i>(<i>K<sub>0</sub></i>, <i>m'<sub>i</sub></i> <B>xor</B> <i>Z</i>) for <i>i</i> = 1, ... , <i>s</i></p>
+</blockquote>
+<p>where <i>Z</i> is the hash of the concatenated <i>m'</i> values:</p>
+<blockquote>
+<p><i>Z</i> = HASH(<i>m'<sub>1</sub></i>, <i>m'<sub>2</sub></i>, ... , <i>m'<sub>s</sub></i>)</p>
+</blockquote>
+<p>HASH can be any cryptographically sound hash function, such as SHA-1 or MD5, or indeed a block cipher used as a hash function. One can further note that since the encryption function <i>E</i> is only used &quot;one-way&quot; it could be replaced by a hash -- meaning that only one type of cryptographic primitive is being used.</p>
+<p>Using the value <i>Z</i> in this way pushes the cost of evaluating each trial arrangement up from as little as one encryption operation to at least <i>s</i> hash operations.</p>
+<p>It will be further noted that the package transform described by Rivest uses a block cipher in counter mode that operates independently on each section <i>m<sub>i</sub></i> of the message. In order to avoid problems with repetition of plaintext, the block number is XOR'd into the message value. In a &quot;chaffing and winnowing&quot; scheme these block numbers are all relatively small integers so that insufficient randomness may be injected to completely defeat an attacker who attempts to construct dictionaries of blocks at each position. Thus the security of this part of the transform is very heavily dependent upon selecting different random keys <i>K'</i>. Unless it is necessary to cater for parallel computation of this function, a defence-in-depth design philosophy makes it desirable to use a feedback mode for the encryption function.</p>
+
+<h3>2.3 <a NAME="SecRIP2000"></a>The UK Regulation of Investigatory Powers Act 2000</h3>
+
+<p>The Regulation of Investigatory Powers Act 2000&nbsp;[<a HREF="#RIP">13</a>] became part of UK law in July 2000. It covers a wide range of issues, from the rules for interception of communications through access to communications data (who talked to whom) to low-tech investigation techniques such as handling informers and following people down the street.</p>
+<p>Part III of the Act relates to &quot;encryption&quot; and is currently (mid-2002) dormant, but is expected to become active later in the year. The basic idea of this part of the Act is that there is &quot;protected information&quot;, which is either a message or some stored data. The authorities can, in suitable circumstances, serve a notice under s49 of the Act to require that the protected information be disclosed &quot;in an intelligible form&quot; (s50(1)(b)). It is an offence (s53), with up to two years gaol time to fail to comply. There are statutory defences (s53(2), s53(3), s53(4)) for such obvious issues as not having a suitable key to decrypt with, which means that you cannot be locked up for transporting random bits around.</p>
+<p>If you are required to decrypt material then it is sufficient to deliver the plaintext. You may hand over your key if you prefer (s50(2)), but you are not in general obliged to do so. In some special circumstances the notice served under s49 can require the delivery of keys, but the Act specifically forbids access to &quot;signature keys&quot; in s49(9).</p>
+
+<h2>3. <a NAME="SecDesign"></a>Chaffinch Design</h2>
+
+<h3>3.1 <a NAME="SecHighDesign"></a>High-level Design</h3>
+
+<p>Chaffinch is a way of sending multiple messages within a single communication by means of a &quot;chaffing and winnowing&quot; style scheme. A &quot;cover message&quot; is always sent, which may be accompanied by further optional messages. The cover message is no shorter than the accompanying messages. In the face of legal challenge the cover message will always be the first to be revealed, and its contents should be chosen appropriately for this eventuality. It will be possible to &quot;plausibly deny&quot; that the optional messages exist, so they need not be revealed.</p>
+<p>The system works by taking the cover message, splitting it into short sections and randomly interspersing &quot;chaff&quot; between these sections. The valid sections of the resulting communication are &quot;signed&quot; with a secret key so that the receiver can identify them, whereas the chaff is given a random &quot;signing&quot; value so that the receiver will ignore it. Anyone unaware of the secret key will face an impracticable amount of work in identifying precisely which sections form the message and thereby recovering the text.</p>
+<p>The chaff can be composed either of completely random material, or it can be composed of further messages using different secret authentication keys. The treatment is the same as for the cover message; each further message is split into sections and then the appropriate secret key for that message authenticates each section by &quot;signing&quot; it. The resulting sections will act as chaff for the cover message and the cover message acts as chaff for them. Not all of the random chaff can be replaced by messages -- for otherwise revealing the next to last message would also reveal the last message. However, by careful design parameter choice, as discussed below, the Chaffinch system permits between one and fifteen further messages to be sent, depending upon their length.</p>
+<p>Fig.&nbsp;1 should make the general idea more clear. It shows a small part of a Chaffinch message, with the cover message (1) interleaved with two further messages (2) and (3). Note that the message sections are always in the correct order, but that a random choice is made as to the way in which the interleaving occurs, so in the example the first section of message 3 occurs before the first section of message 1.</p>
+<center>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=450>
+<TR>
+   <TD WIDTH="25%" VALIGN="TOP" HEIGHT=28><CENTER>Session</CENTER></TD>
+   <TD WIDTH="75%" VALIGN="TOP" COLSPAN=2 HEIGHT=28></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Message 3 Section 1</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Message 3 Signature</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Message 1 Section 1</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Message 1 Signature</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Random</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Random</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Message 1 Section 2</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Message 1 Signature</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Message 2 Section 1</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Message 2 Signature</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Random</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Random</CENTER></TD>
+</TR>
+<TR>
+   <TD WIDTH="50%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>Message 1 Section 3</CENTER></TD>
+   <TD WIDTH="50%" VALIGN="TOP" HEIGHT=28><CENTER>Message 1 Signature</CENTER></TD>
+</TR>
+<TR>
+   <TD VALIGN="TOP" COLSPAN=3 HEIGHT=28><p></p></TD>
+</TR>
+</TABLE>
+<p><b>Fig. 1.</b> Conceptual view of a Chaffinch block</p>
+</center>
+
+<p>In Rivest's initial design he envisaged the use of a MAC to authenticate the message sections. He observed that by use of suitably long MAC values there would only be an infinitesimal chance of a random value attached to a piece of chaff being mistaken for a valid section of a message. He suggested a 64 bit MAC to ensure a false hit rate of less than one in 10<sup>19</sup>.</p>
+<p>There is a problem with just using a MAC, pointed out by Bellare and Boldyreva&nbsp;[<a HREF="#Bellare">5</a>]. If a message section recurs, then if the attached MAC values differ then this is an indication that one of the sections is message and the other is chaff. This can be used to reduce the time complexity of an attack.</p>
+<p>However, the main difficulty with using large MACs is that they increase bandwidth usage, so within Chaffinch we use an alternative scheme. The secret authentication key is used to prime a stream cipher (we could have used a block cipher operating in output feedback mode). The resulting data is used, a few bits at a time, as a marker to show which message sections are part of the message. The other sections receive random values so that someone who knows the authentication key will know that they can be ignored. Since the authentication is independent of the message section values the Bellare-Boldyreva attack is not relevant.</p>
+<p>To ensure that the authentication data will not be identical if the same key is used again with the same message, a random session value is incorporated into the cipher initialisation by hashing it with the authentication key. This session value is sent <I>en claire</I> to the receiver so that message reconstruction is possible. In order to avoid revealing how many messages are present within a single communication, the same session value is used for all of the messages being sent at the same time.</p>
+<p>Although this authentication scheme uses less bandwidth (a few bits of cipher stream rather than 64 bits of MAC), it is now far more likely that a random value on a section of chaff will be mistaken for a valid authenticator. If only one message was being sent, it would be possible to choose another random value whenever a case of mistaken identity occurred. This would have to be done with care, so as to avoid any possibility that an attacker might detect non-random behaviour. However, we are trying to send multiple messages and if the next packet is from another message then you cannot change the authenticator on a single section. Clearly there are solutions to this, by choosing new session values and ordering the way in which misidentifications are checked for. However, this would be at the cost of some implementation complexity, with the consequent risk of errors that might allow an attacker to succeed in breaking the security of the system.</p>
+<p>To keep the implementation simple, Chaffinch takes a completely different approach. No attempt is made to prevent random chaff from being recognised as a valid section of the message. Instead, the recipient does a &quot;brute-force&quot; search of the possible combinations of valid message sections, and the correct arrangement is detected when the decoding generates a message prepended by a valid hash of its contents. The details of this can be found in Sect.&nbsp;<a HREF="#SecNumbers">4.2</a>, but the executive summary is that by using 10 bits of the cipher stream as an authenticator, then on average it is necessary to consider 41 possible arrangements of message sections, and one time in ten thousand it will be necessary to consider 6,000 or more arrangements. This amount of effort is well within the capabilities of modern machines.</p>
+<p>It is wise to have an agreement between sender and receiver as to what length messages may be, because this simplifies the brute force search algorithm and allows it to &quot;prune&quot; large numbers of cases, with consequent performance benefits. Therefore messages are padded to one of a small number of known lengths. By padding to the smallest of these known lengths we can ensure that apart from the presence of the cover message, it is not possible to determine how many further messages are present, even if some of them are revealed.</p>
+<p>In order to deal with a cover message that is too long for the predefined lengths, we merely create a second Chaffinch block and append this to the first, with new random values and a new intermingling of message sections. The other messages are then distributed evenly across all available blocks. This algorithm, along with the insistence that the number of blocks is determined solely by the length of the cover message, prevents the leakage of information about the presence of any further messages.</p>
+
+<h3>3.2 <a NAME="SecBear"></a>The BEAR Pre-processing Stage</h3>
+
+<p>We need to apply an &quot;all-or-nothing&quot; pre-processing function to the message text before it is split into sections and authenticated. This pre-processing prevents the attacker from picking out a message by using a probabilistic approach of guessing whether the next part of the data stream fits as the next message section, or whether it is just random chaff. Furthermore, the pseudo-random nature of the result of the pre-processing ensures that the message sections will be indistinguishable from the random chaff -- no statistical measurements will be able to tell them apart.</p>
+<p>In Chaffinch we use an &quot;all or nothing&quot; scheme based on BEAR&nbsp;[<a HREF="#BEAR">1</a>] rather than Rivest's package transform. Besides the weaknesses already discussed in Sect.&nbsp;<a HREF="#SecTransform">2.2</a>, the package transform has the inconvenient property of adding an extra hash value to the length of each message -- leading to a number of implementation complexities. It also uses a session key and although this is transmitted in a visible manner (if one knows exactly where to look) a court of law might consider it be an encryption key and start treating Chaffinch as an encryption system rather than a way of transmitting authenticated messages. One of our design aims was to avoid systems that are <I>prima facie</I> encryption since pure authentication systems have special legal privileges. We believe that lay jury members will be especially impressed by the fact that we use BEAR in a keyless manner and the transformed message is sent in plain sight, albeit in a hard to locate fashion.</p>
+<p>BEAR is usually described as a block cipher constructed from a keyed hash function and a stream cipher. These are combined in an unbalanced Feistel cipher structure where the left part (L) has the length of the output of the hash function and the right part (R) can be of arbitrary length.</p>
+<p>Encryption is performed using a keyed hash function <i>H(k)</i> for some key <i>k</i> and a stream cipher <i>S</i>:</p>
+
+<blockquote>
+<p><i>L</i> = <i>L</i> <b>xor</b> <i>H</i>(<i>k<sub>1</sub></i>, <i>R</i>)</p>
+<p><i>R</i> = <i>R</i> <b>xor</b> <i>S</i>(<i>L</i>)</p>
+<p><i>L</i> = <i>L</i> <b>xor</b> <i>H</i>(<i>k<sub>2</sub></i>, <i>R</i>)</p>
+</blockquote>
+
+<p>The decryption is done by exchanging <i>k<sub>1</sub></i> and <i>k<sub>2</sub></i>. Any standard hash function, such as SHA-1 can be converted into a suitable keyed hash function by prepending the key to the input stream.</p>
+<p>In Chaffinch, since we are not interested in secrecy but only in pre-processing into a sea of random bits, we don't use a key at all:</p>
+
+<blockquote>
+<p><i>L</i> = <i>L</i> <b>xor</b> <i>H</i>(<i>R</i>)</p>
+<p><i>R</i> = <i>R</i> <b>xor</b> <i>S</i>(<i>L</i>)</p>
+<p><i>L</i> = <i>L</i> <b>xor</b> <i>H</i>(<i>R</i>)</p>
+</blockquote>
+
+<p>As we will see later in Sect.&nbsp;<a HREF="#SecNumbers">4.2</a> the message text is preceded by some &quot;red tape&quot; which includes a randomly chosen nonce. This nonce contributes to the freshness whenever the same message is sent twice and also provides protection for messages with large amounts of padding -- which might otherwise be vulnerable to brute force attack. There is a small risk that a court might view this nonce as some sort of key. However, it changes with every message and is always revealed when the message is put into an intelligible form, so requests for it to be provided independently of the message text make no logical sense.</p>
+
+<h3>3.3 <a NAME="SecInteract"></a>Interaction with the RIP Act</h3>
+
+<p>With the high-level design of Chaffinch described, we can now look at how this interacts with the UK's Regulation of Investigatory Powers Act.</p>
+<p>If a s49 notice is served on a sender or a receiver, then they will be obliged to put their communications into an &quot;intelligible form&quot;. A Chaffinch user could try and claim that their messages are not encrypted and hence are already intelligible, provided that one knows which sections to inspect. This might not impress a court, and previous papers already, in the limit, equate chaffing with encryption&nbsp;[<a HREF="#McHugh">9</a>]. The court may also take the view that the use of keys to prime the stream cipher makes the system <I>de facto</I> encryption, even though the transforms made on the message itself are independent of these keys.</p>
+<p>A Chaffinch user will, however, be able to respond to the s49 notice by providing the plaintext of the cover message. To prevent any dispute as to whether the plaintext is correct then the nonce for its session should also be provided. This will allow the authorities to recreate the message sections and see that they are present in the message. They will be able to do this without having access to the key that was used to create the authenticators and hence they will not have access to any other traffic, past or future.</p>
+<p>If there are further hidden messages then the s49 notice will, presumably, have been written in such terms as to require that they are also revealed. However, if the sender and receiver are prepared to unlawfully conceal these messages, the authorities will find it impossible to demonstrate their presence. In the usual phrase, Chaffinch users have &quot;plausible deniability&quot;.</p>
+<p>If the authorities wish to go further they may use s51 to require keys to be divulged. However, the keys will have been used solely for generating &quot;electronic signatures&quot; to authenticate message sections and s49(9) prohibits any demand for this type of key. Whilst the RIP Act was being debated in the UK Parliament, there was some controversy surrounding this clause and the exact definition of an encryption key [<a HREF="#Bassam">3</a>] and this might provide the basis of an argument that would convince the court. </p>
+<p>If the legal argument fails and the Chaffinch keys must be revealed, then the same issues of &quot;plausible deniability&quot; arise as above. The user will need to divulge the key for cover messages (and any other messages they have revealed) because otherwise the authorities will know that they are being misled. However, undivulged messages whose keys stay secret will remain undetectable.</p>
+
+<h2>4. <a NAME="SecDetail"></a>Detailed Design Issues</h2>
+
+<p>In this section we discuss some of the engineering decisions we took in implementing Chaffinch. To some extent, these choices are arbitrary, and other choices are valid, though they would not inter-operate with our code. However, there are some good reasons for picking values from particular ranges of possibilities and we explain the considerations that apply.</p>
+
+<h3>4.1 <a NAME="SecIntroduction"></a>Size and Number of Sections</h3>
+
+<p>The first decision was the size of each message section. If it is large then more information can be sent but the larger it is, the greater the risk that some sort of bias might be detectable between <i>n</i> bytes of output of a random number generator and <i>n</i> bytes of output from the BEAR pre-processing. Naturally we would expect to use a good random number generator and BEAR primitives will give a reasonably random output, but keeping <i>n</i> small will frustrate this type of analysis. We settled on using 4 byte sections so that only major flaws in randomness would leak information.</p>
+<p>Most email messages are short -- less than 4 kbytes long. We chose the maximum number of sections a message can use to be 1024 so that a typical email could be sent as a single Chaffinch packet. Each packet will, as we will see, occupy 10.5 kbytes on the wire. Of course, it is relatively easy to arrange for messages to be compressed before they are encoded. Since text will typically shrink to about 20% of its initial size this means that by adding an automatic compression stage to the Chaffinch system a single packet could transport a 20K message.</p>
+<p>The sizes can now be chosen for the steganographically-concealed messages that can replace some of the chaff. These sizes need to be fixed in order to reduce the workload for the receiver who would otherwise have to try and detect messages at all possible sizes.</p>
+<p>We need to provide at least 47 bytes of chaff to protect the confidentiality of the smallest message we send (and that message must be at least 47 sections long). This is because this gives a brute force attacker 94! / (47! X 47!) arrangements to consider (about 2<sup>90</sup>) which is similar to the recommended complexity for long term security in Blaze et al&nbsp;[<a HREF="#KeyLen">6</a>]. In practice, we specified 64 sections of chaff and allowed messages to have sizes of 64, 128, 256, 512 or 1024 sections (256, 512, 1K, 2K or 4K bytes). This choice of sizes gives an attacker a minimum of 2<sup>116</sup> arrangements to tackle, even if all other messages have been revealed except for a 64 section message and the accompanying chaff.</p>
+
+<h3>4.2 <a NAME="SecNumbers"></a>Length of Authentication Data</h3>
+
+<p>It will be recalled that chaff can be incorrectly identified as a section of the message if its randomly chosen authentication matches an expected value. However, there are only a small number of chaff sections between message sections; even the smallest message size of 64 is spread over just 2048 sections (one message section for every 31 of chaff). With an authenticator of 8 bits, there's only about a 12% chance of chaff being mistaken for part of the message. Of course, when the message is assembled and the BEAR pre-processing is undone, then the mistake will be detected. However, this will take effort, so reducing misidentification is desirable.</p>
+<p>Misidentification is dominated by the presence of two <i>n</i> + 1 values between a section marked <i>n</i> and the section marked <i>n</i>+ 2. Clearly, other cases can occur (where an incorrect identification of <i>n</i> + 1 leads to the misidentification of which section is marked <i>n</i> + 2 etc) but sections that are marked correctly occur so much more often than by random chance that combinations of mistaken identity don't occur very often in practice.</p>
+<p>So, as a first approximation, the number of combinations of sections that could form a message can be determined by a binomial distribution:</p>
+<center>
+<table>
+<tr valign="bottom"><td>&nbsp;</td><td><i>n</i></td><td>&nbsp;</td><td></td></tr>
+<tr><td>(</td><td></td><td>)</td><td><i>p<sup>x</sup></i> (1 - <i>p</i>)<sup><i>n - x</i></sup></td></tr>
+<tr valign="top"><td>&nbsp;</td><td><i>x</i></td><td>&nbsp;</td><td></td></tr>
+</table>
+</center>
+<p>where <i>n</i> is the number of sections (64, 128, ..., 1024), <i>x</i> the number of misidentifications (and hence 2<sup><i>x</i></sup> the number of attempts necessary to decode the message) and <i>p</i> the probability of a misidentification. <i>p</i> is approximately 
+(((2048 / (<i>m</i>-1)) - 2) / 2<sup><i>A</i></sup>
+where <i>m</i> is the number of sections and <i>A</i> the number of bits in the authentication data. Choosing <i>A</i> to be 10 leads to a manageable number of misidentifications: for 64 sections, 95% of the time one has a maximum of 128 attempts to decode the message.</p>
+<p>It is possible to refine this model to consider other combinations of misidentification such as the sequence: <i>n</i>, <i>n</i>+1, <i>n</i>+2, <i>n</i>+1, <i>n+2</i>, <i>n</i>+3 ... which leads to three possible message constructions, but occurs more rarely. This combines with the mechanism already identified to give a further, 128 times less common, binomial distribution of 3, 6, 12, 24 ... possible arrangements.</p>
+<p>We verified this model by creating 1,000,000 Chaffinch messages with a 10 bit authenticator, 1024 message sections and plotted the resulting number of message arrangements in Fig.&nbsp;2. The two overlapping binomial distributions can be clearly seen.</p>
+
+<center>
+<img src="chaffinchFig2.png" alt="Fig 2: Messages of 1024 sections, 1 million trials, log scales">
+<p><b>Fig. 2.</b> Messages of 1024 sections, 1 million trials, log scales</p>
+</center>
+
+<p>When only 64 message sections were present, even more groups of binomial distributions occurred (because the extra chaff between message sections allowed more complicated interactions) as can be seen in Fig.&nbsp;3.</p>
+
+<center>
+<img src="chaffinchFig3.png" alt="Fig 3: Messages of 64 sections, 1 million trials, log scales">
+<p><b>Fig. 3.</b> Messages of 64 sections, 1 million trials, log scales</p>
+</center>
+
+<p>This analysis leads to a further refinement of the Chaffinch design. In order to ensure that a brute force attacker who is guessing keys will have the maximum amount of work to do, we process the authentication data with BEAR prior to splitting it up into 10-bit sections to mark the message. The attacker will therefore have to duplicate this processing before they can attempt to match their authentication stream with a message. If we did not do this then they would usually be able to conclude after a handful of matches that the authentication data was moving through the message sections too quickly to be valid.</p>
+
+<h3>4.3 <a NAME="SecMsgFormat"></a>Message Format</h3>
+
+<p>Each message to be encoded by Chaffinch needs some further header data as shown in Fig.&nbsp;4.</p>
+
+<center>
+<TABLE BORDER CELLSPACING=1 CELLPADDING=7 WIDTH=300>
+<TR>
+  <TD WIDTH="25%" VALIGN="TOP" HEIGHT=28><CENTER>nonce</CENTER></TD>
+  <TD WIDTH="25%" VALIGN="TOP" HEIGHT=28><CENTER>hash</CENTER></TD>
+  <TD WIDTH="25%" VALIGN="TOP" HEIGHT=28><CENTER>count</CENTER></TD>
+  <TD WIDTH="25%" VALIGN="TOP" HEIGHT=28><CENTER>session</CENTER></TD>
+</TR>
+<TR>
+  <TD WIDTH="64%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>message data</CENTER></TD>
+  <TD WIDTH="36%" VALIGN="TOP" COLSPAN=2 HEIGHT=28><CENTER>padding</CENTER></TD>
+</TR>
+</TABLE>
+<p><b>Fig. 4.</b> Message format before BEAR preprocessing</p>
+</center>
+
+<p><B>nonce</B> is the random value used to ensure that the pre-processing output is unique even where the same input message is present.</p>
+<p><B>hash</B> is a hash of all the other fields in this block and all preceding blocks, except the nonce values (which are ignored, to avoid any remaining possibility that they might be seen as a key).</p>
+<p><B>count</B> is a count of the message data bytes. One bit is also used to indicate that this is the last block in the whole Chaffinch communication.</p>
+<p><B>session</B> is a copy of the value described in Sect.&nbsp;<a HREF="#SecHighDesign">3.1</a> above (and shown in Fig.&nbsp;1) that is used to provide uniqueness to the authentication scheme. It is reproduced here to prevent some types of message splicing attacks.</p>
+<p>The <b>message data</b> is the text of the message to be sent and <b>padding</b> is any necessary zero valued bytes added to increase the total length of all the items shown to 256, 512, 1024, 2048 or 4096 bytes.</p>
+<p>The hash only needs to be calculated over the current block in order to allow the receiver to identify when the correct set of sections has been accumulated. However, it is calculated over the entire message thus far in order to detect an attacker replacing, removing or substituting entire blocks.</p>
+
+<h3>4.4 <a NAME="SecRecognition"></a>Message Section Recognition</h3>
+
+<p>The receiver needs to determine which sections form the message. This is relatively straightforward to do with a depth-first tree search with backtracking. The following pseudo-code shows the general technique:</p>
+<PRE>
+sub decode()
+    for (n=0, i=0; ;i++) {
+        if (i &lt maxSections &amp;&amp; expectSig[n] == actualSig[i]) {
+            // this section is signed correctly, so record it
+            blocks[n++] = i;
+            if (n == seekSections) {
+               // once have the required number of sections check
+               // if they form a valid part of the message
+               if (Validate(digest, last, blocks, chunks))
+                  return TRUE;
+               // if not then look for alternative match
+               --n;
+            }
+        }
+        if (i &gt;= limit[n]) {
+           // eventually no longer worthwhile looking for a match
+           if (n == 0)
+               return FALSE;
+           // so look for an alternative match
+           i = blocks[--n];
+        }
+    }
+}
+</PRE>
+
+<p>The <TT>limit</TT> array is filled in by searching backwards along the message to determine the last possible match for each signature. This then acts to prune the tree by indicating when it is not worthwhile searching for alternative matches because there is no possibility of filling in the rest of the <TT>blocks</TT>.</p>
+
+<h2>5. <a NAME="SecKeyHand"></a>Operational Issues</h2>
+
+<h3>5.1 <a NAME="SecKeyDistrib"></a>Key Distribution</h3>
+
+<p>The Chaffinch system relies upon using different keys for different messages hidden in the same stream. In the original chaffing and winnowing paper, Rivest states that a standard key exchange protocol, such as Diffie-Hellman, could be used by the two communicating parties to exchange authentication keys. In the threat model that our system is addressing, this is somewhat more problematic.</p>
+<p>Diffie-Hellman is pretty clearly an encryption system and is therefore subject to legal attack. If the authorities requested that a Diffie-Hellman exchange be put into an intelligible form then compliance would reveal whatever data had been transmitted over the link. However, if the Diffie-Hellman keys were discarded at the end of the conversation it would be possible to provide any plausible plaintext, rather than reveal some Chaffinch keying information. One might expect to be able to achieve this type of plausible deniability by using SSL to encrypt a Telnet session -- except that some SSL configurations use long term secrets. All in all, it might be wiser to arrange an out-of-band physical meeting in order to agree the shared secret authentication key.</p>
+<p>It should be noted that Chaffinch requires a separate shared secret key for each message that is sent simultaneously, but the keys can be reused for subsequent messages. This leads to many interesting key sharing possibilities, including the idea of broadcast keys that allow for multi-way conversations. In particular keys can be agreed upon but never actually used. Chaffinch can be made more robust against coercion by agreeing extra keys per channel, one to be used to authenticate the traffic, and others to be revealed in extremis. If both parties to a conversation are being coerced at the same time then both revealing the same key may give plausibility to its veracity -- despite it never having been used, although considerable further difficulties may arise if someone misremembers the intended order of revelation.</p>
+<p>A deniable encryption technique, such as the one presented by Beaver&nbsp;[<a HREF="#Deniable">4</a>], could be used in order to exchange these two keys each time a message is sent. In order to make it even more plausible that the key revealed is actually the proper one it could also be used to authenticate some communications. This could be considered to be a special case of cover traffic within a Chaffinch channel.</p>
+
+<h3>5.2 <a NAME="SecSecret"></a>Keeping Keys Secret</h3>
+
+<p>There are some practical threats to the security of secret keys. It is important that they are never stored on disk, since various powers allow the authorities to inspect computer storage. Even if encryption hides the keys, the RIP Act permits the authorities to request that stored material is &quot;put into an intelligible form&quot;.</p>
+<p>As usual with key systems, it is possible to generate different keys for every message by means of a generating phrase that is hashed a different, reducing, number of times on each occasion. If the phrase is kept secret but a key is revealed then past traffic will be compromised (because the authorities can perform the hashes needed to construct keys used in the past) but future traffic will be protected. Alternatively, both forward and reverse secrecy can be achieved by creating new keys that are a result of encrypting a key with itself. This will provide backward secrecy.</p>
+<p>It is a weakness of the Chaffinch system that the secrets that it uses are shared between sender and receiver. This means that either the sender or receiver of a message is in a position to reveal its contents and to compromise other messages sent with the same key. In an environment where both sender and receiver could be subject to simultaneous coercion to reveal these secrets it would be advisable to arrange for the secrets to be revealed in a pre-set order. This will minimise the rate of access to information achieved by the adversary for since half the effort spent on coercion will merely yield duplicate information -- and will also avoid a situation where the adversary knows that both parties are continuing to hide information. Once the adversary believes that all of the keys have been revealed then perhaps the coercion will cease.</p>
+
+<h3>5.3 <a NAME="SecUnderlying"></a>The Underlying Chaff</h3>
+
+<p>When all messages within a single communication have been revealed then all that remains will be the random chaff. In some cases a Chaffinch user, particularly if subject to extreme forms of coercion, may wish to be able to demonstrate that no further messages remain hidden. This might be achieved by generating the chaff in a pseudo-random manner using a key for this purpose. Of course, once this key has been revealed then any communication containing <i>N</i> messages will be compromised as soon as <i>N</i>-1 message keys are known. In particular, if there is only a cover message then this will be immediately available. A better scheme would be to convert a suitable length array of zeros into a standard Chaffinch message, with nonce, hash, length, etc. This can then be used to provide the chaff sections, with the authentication values being truly random. Once all messages have been revealed, the remaining sections will compromise this message -- so there is no need to be able to regenerate the random data stream.</p>
+<p>Other users will be satisfied with the security that is given by making the random chaff irreproducible. They will be unable to prove that no further messages remain to be discovered. Such users will know that no matter how extreme the coercion, and no matter how well or badly they face up to their situation, they will continue to tie up the resources of their adversaries in a fruitless task.</p>
+<p>Finally, we note the possibility of providing further hidden channels within the chaff or within the (non-)authentication values that accompany the chaff. These channels could span many separate communications -- all that is needed is an agreement between sender and receiver as to where to look for them.</p>
+
+<h3>5.4 <a NAME="SecForensic"></a>Forensic Analysis</h3>
+<p>If a Chaffinch user comes under suspicion, their computer is likely to be seized and subjected to detailed forensic analysis. This may, of itself, yield copies of messages that have been communicated, either because they have been explicitly recorded or because details of the messages can be found in, or inferred from, system level files such as swap space. If more communications can be located than are accounted for by the information about messages or keys that have already been revealed, then the authorities will know that information is being withheld. Therefore Chaffinch can only be seen as one part of a communications security strategy in which systems such as steganographic filestores&nbsp;[<a HREF="#McDonald">8</a>] may also play a part in providing system-wide plausible deniability.</p>
+
+<h2>6. <a NAME="SecConclusions"></a>Conclusions</h2>
+
+<p>We have shown how a practical confidential message passing system can be built that is based upon Rivest's &quot;chaffing and winnowing&quot; idea. By using an all-or-nothing system that utilises the variable block length cipher BEAR we have avoided the problems of pre-computation with Rivest's &quot;package transform&quot;. The messages and also their authenticators are indistinguishable from random data, so further obfuscation can be achieved by disguising Chaffinch packets as other types of encryption.</p>
+<p>As well as the cover message we have made it possible to send further confidential messages whose presence is plausibly deniable. We have proposed alternative schemes for handling the situation when the last message has been revealed, which allow a choice between escaping further coercion or tying up an attacker's resources indefinitely.</p>
+<p>We have simplified message construction, and significantly reduced bandwidth requirements, by a probabilistic scheme that requires extra work by the receiver -- but a careful choice of design parameters keeps this work to a reasonable level. However, if the scheme was used for transmitting streaming media, then timing issues would require further study. We also assume that an attacker cannot observe the time taken to encode or decode any particular message.</p>
+<p>We have analysed the ability of the system to withstand attack not just by attackers in the cryptographic realm but also by authorities with legal powers granted to them under the UK's Regulation of Investigatory Powers (RIP) Bill.</p>
+<p>The system provides confidentiality, so even if communications are intercepted, it will not be possible to understand the content of the message. However, there is nothing in the Chaffinch design to hide the identities of sender and receiver; and in many cases security is compromised by the mere act of communication rather than by what it actually said. People looking for systems that are secure against this type of traffic analysis will need to look for other mechanisms beyond mere confidentiality and plausible deniability.</p>
+
+<h2>Acknowledgements</h2>
+
+<p>We would like to thank Dr Ross Anderson for his comments on drafts of this paper and for pointing out the simplification achieved by use of the BEAR cipher.</p>
+
+<h2>References</h2>
+
+<OL>
+<LI><a NAME="BEAR"></a>
+R. Anderson and E. Biham:
+Two practical and provably secure block ciphers: BEAR and LION.
+In Fast Software Encryption (proceedings Third International Workshop, 1996), Springer.
+</LI>
+<LI><a NAME="Chaffe"></a>
+W. Annis:
+Chaffe.
+<a HREF="http://www.biostat.wisc.edu/~annis/creations/Chaffe.html">http://www.biostat.wisc.edu/~annis/creations/Chaffe.html</a>
+</LI>
+<LI><a NAME="Bassam"></a>
+Lord Bassam:
+Hansard, 13 July 2000, column 434.
+</LI>
+<LI><a NAME="Deniable"></a>
+D. Beaver:
+Plausible deniability.
+In Advances in Cryptology -- PraguoCrypt '96 Proceedings, Prague, Czech Republic, 1996. pp. 272-288, GC UCMP, ISBN 80-01-01502-5.
+</LI>
+<LI><a NAME="Bellare"></a>
+M. Bellare and A. Boldyreva:
+The security of chaffing and winnowing.
+ASIACRYPT 2000, LNCS 1976, Springer-Verlag 2000, pp. 517-530.
+</LI>
+<LI><a NAME="KeyLen"></a>
+M. Blaze, W. Diffie, R.L. Rivest, B. Schneier, T. Shimomura, E. Thompson and M. Wiener:
+Minimal key lengths for symmetric ciphers to provide adequate commercial security. A report by an ad hoc group of cryptographers and computer scientists.
+1996 <a HREF="http://www.crypto.com/papers/keylength.txt">http://www.crypto.com/papers/keylength.txt</a>
+</LI>
+<LI><a NAME="Desai"></a>
+A. Desai:
+The security of all-or-nothing encryption: Protecting against exhaustive key search.
+CRYPTO 2000, LNCS 1880, Springer-Verlag 2000, pp. 359-375.
+</LI>
+<LI><a NAME="McDonald"></a>
+A. McDonald and M.G. Kuhn:
+StegFS: A Steganographic File System for Linux. 
+In A. Pfitzmann (Ed.) Information Hiding, Third International Workshop, IH'99, Dresden 1999, LNCS 1768, Springer Verlag 2000, pp. 463-477.
+</LI>
+<LI><a NAME="McHugh"></a>
+J. McHugh:
+Chaffing at the Bit: Thoughts on a Note by Ronald Rivest.
+In A. Pfitzmann (Ed.) Information Hiding, Third International Workshop, IH'99, Dresden 1999, LNCS 1768, Springer Verlag 2000, pp. 395-404.
+</LI>
+<LI><a NAME="Chaffing"></a>
+R. L. Rivest:
+Chaffing and winnowing: Confidentiality without encryption.
+RSA Laboratories CryptoBytes 4(1) 1998.
+</LI>
+<LI><a NAME="PTransform"></a>
+R. L. Rivest:
+All-or-nothing encryption and the package transform.
+Fast Software Encryption 1997, LNCS 1267, E. Biham, Ed., Springer-Verlag, 1997, pp210-218.
+</LI>
+<LI><a NAME="Chaffwin"></a>
+B. Sussman and K. Fogel:
+Chaffwin.
+<a HREF="ftp://ftp.red-bean.com/pub/chaffwin/chaffwin.tar.gz">ftp://ftp.red-bean.com/pub/chaffwin/chaffwin.tar.gz</a>
+</LI>
+<LI><a NAME="RIP"></a>
+UK Stationery Office Ltd:
+Regulation of Investigatory Powers Act 2000. ISBN 0-10-542300-9.
+</LI>
+</OL>
+</BODY>
+</HTML>

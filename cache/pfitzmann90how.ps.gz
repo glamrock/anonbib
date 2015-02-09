@@ -1,0 +1,235 @@
+<HTML>
+<head><TITLE>Sirene Online Abstracts 1990</TITLE></head>
+<body><h1>Sirene Online Abstracts 1990</h1>
+
+(Sorted by authors.)<P>
+
+Most of the following papers are available online in <b>gnuzipped
+Postscript</b>, some also in PDF. There is also a <a href="sirene.lit.html">
+complete list</a> of all our publications sorted by language and subject.<p>
+
+Don't forget: some proceedings are <I>published</I> in a later year than
+the conference is held.<p>
+
+<hr><a name="BuePf_90"> Holger B&uuml;rk, Andreas Pfitzmann:</a>
+<a href="../publ/BuePf_90.ps.gz"><b>
+Value Exchange Systems Enabling Security and Unobservability;</b></a><i>
+Computers &amp; Security 9/8 (1990) 715-721.
+</i><p><b>Abstract: </b>
+The main problem arising in value exchange over a network, e.g. in the exchange
+of digital money for other valuable information, is the lack of simultaneity of
+the exchange, yielding a temporary advantage for one party, who could then stop
+communication. The situation is even worse when this party is anonymous. This
+normally is the case when digital payment systems enabling unobservability are
+used. But third parties can be used to overcome this problem. We compare two
+rather different approaches using third parties. The first tries to provide
+security by third parties identifying perpetrators in case of detected fraud,
+whereas the second uses a third party as trustee who takes an active part in
+the value exchange and can be completely controlled by each absolutely
+anonymous party.<p>
+
+<hr><a name="PfAss_90"> Andreas Pfitzmann, Ralf A&szlig;mann: </a><a href="../publ/PfAss_90DES_IB.ps.gz"><b>Efficient Software Implementations of (Generalized) DES; </b></a><i>Proc. SECURICOM 90, Paris, March 1990, 139-158. Revision with more details and an even more efficient implementation: Interner
+Bericht 18/90, Fakult&auml;t f&uuml;r Informatik, Universit&auml;t Karlsruhe,
+May 1990.
+</i><p><b>Abstract: </b>
+By preserving the macro structure of the Data Encryption Standard (DES), but by
+allowing the user to choose
+<ol>
+  <li> 16*48 independent key bits instead of generating them all using only 56 key bits,
+  <li> arbitrary substitutions  S1, ..., S8  and
+  <li> arbitrary permutations IP and P, and
+  <li> an arbitrary expanding permutation E,
+</ol>
+we obtain a very general and presumably much stronger cipher called
+<i>generalized DES</i>, or <i>G-DES</i> for short. A cipher having the
+first three extensions is called <i>G-DES with non-arbitrary E</i>.<br>
+We choose, in an unorthodox way, from some well known equivalent
+representations of G-DES and some well suited table combinations and
+implementations. Concatenations of substitutions and permutations are
+precomputed and tabulated. Since direct tabulation of e.g. a permutation of 32
+bits requires 2<sup>32</sup> entries of 4 bytes each, which clearly exceeds the
+main memories of today, the big table is split into smaller ones that permute
+disjoint and compact parts of the input bits at the appropriate positions. To
+compute an entry in the big table, the corresponding entries in the smaller
+tables are ORed.<br>
+For some specific expanding permutations (including the original E in DES), the
+expense of this permutation can be reduced drastically: Only copy, rotate, and
+AND with a mask of a register is necessary, if the bits in the register and the
+tables of the substitutions are ordered appropriately. Since this is the only
+way to achieve better performance for DES than for G-DES we know, it does not
+seem to make sense to implement anything more narrow in software than <i>G-DES
+with non-arbitrary E</i>.<p>
+
+<hr><a name="Pfit_90"> Andreas Pfitzmann: </a><b>Diensteintegrierende Kommunikationsnetze mit teilnehmer&uuml;berpr&uuml;fbarem Datenschutz; </b><i>IFB 234, Springer-Verlag, Heidelberg 1990.
+</i><p><b>Abstract: </b>Immer mehr kommunizieren Menschen und Maschinen &uuml;ber
+&ouml;ffentliche <i>Vermittlungsnetze</i>. <i>Sensitive Daten</i> (z. B.
+personenbezogene Daten, Gesch&auml;ftsgeheimnisse) k&ouml;nnen dabei sowohl aus
+den eigentlichen <i>Nutzdaten</i> als auch aus den <i>Vermittlungsdaten</i>, z.
+B. Ziel- und Herkunftsadresse, Datenumfang und Zeit, gewonnen werden. <br>
+Deshalb wird untersucht, wie diese sensitiven Daten vor illegalen und legalen
+Netzbenutzern, dem Betreiber des Netzes und den Herstellern der
+Vermittlungszentralen sowie den Mitarbeitern der letzteren beiden
+gesch&uuml;tzt werden k&ouml;nnen. Manche Vermittlungsdaten, z. B. die genauen
+Netzadressen der Teilnehmer, m&uuml;ssen auch vor Kommunikationspartnern, etwa
+Datenbanken, gesch&uuml;tzt werden, damit sie nicht als Personenkennzeichen
+verwendbar werden.<br>
+Bei der heute &uuml;blichen und von der Deutschen Bundespost auch f&uuml;r die
+Zukunft, n&auml;mlich f&uuml;r das<b> diensteintegrierende</b> Digitalnetz
+(ISDN), geplanten Netzstruktur erlauben auch juristische
+Datenschutzvorschriften und Verschl&uuml;sselung alleine keinen ausreichenden
+und mit vern&uuml;nftigem Aufwand <b>&uuml;berpr&uuml;fbaren</b> Datenschutz.
+Die Nutzdaten k&ouml;nnen zwar durch Ende-zu-Ende-Verschl&uuml;sselung in
+Digitalnetzen effizient, &uuml;berpr&uuml;fbar und umfassend gesch&uuml;tzt
+werden. Die im Teilnehmeranschlu&szlig;bereich &uuml;bliche vollvermittelte
+Sternstruktur der Kommunikationsnetze erlaubt jedoch durch obige
+Ma&szlig;nahmen keinen &uuml;berpr&uuml;fbaren Schutz der Vermittlungsdaten vor
+dem Betreiber des Netzes. Werden - wie vorgesehen - frei
+speicherprogrammierbare und deshalb, sowie wegen ihrer Komplexit&auml;t,
+f&uuml;r "Trojanische Pferde" anf&auml;llige Vermittlungszentralen verwendet,
+so k&ouml;nnen vor ihren Herstellern und mittels deren Mitarbeitern vor fremden
+Geheimdiensten die Vermittlungsdaten auch nicht &uuml;berpr&uuml;fbar
+gesch&uuml;tzt werden. Derart strukturierte &ouml;ffentliche Vermittlungsnetze,
+insbesondere also das geplante ISDN, gew&auml;hren ihrem Benutzer nicht das im
+Volksz&auml;hlungsurteil des Bundesverfassungsgerichts vom Dezember 1983
+formulierte "Recht auf informationelle Selbstbestimmung ... grunds&auml;tzlich
+selbst &uuml;ber die Preisgabe und Verwendung seiner pers&ouml;nlichen Daten zu
+bestimmen". Zusammen mit dem faktischen Benutzungszwang, der durch ihre immer
+st&auml;rkere Nutzung und das Fernmeldemonopol verursacht wird, wirft dies die
+Frage auf, ob die Beibehaltung dieser Netzstruktur verfassungsrechtlich
+zul&auml;ssig ist.<br>
+Nach dieser Problemanalyse werden zun&auml;chst die zur Abhilfe geeigneten
+bekannten Grundverfahren - sie machen <b>Datenschutz</b> weitgehend sogar
+<b>vom Teilnehmer &uuml;berpr&uuml;fbar</b> - zusammen mit einigen
+&Uuml;berlegungen zu ihrer effizienten Realisierung dargestellt. In reiner Form
+sind sie beim in den n&auml;chsten zwei Jahrzehnten zu erwartenden Stand der
+Technik nur als Spezialnetze f&uuml;r geringe Teilnehmerzahlen bzw.
+Leistungsanforderungen zu vertretbaren, aber bezogen auf die erbrachte
+Kommunikationsleistung hohen Kosten realisierbar. Um die bez&uuml;glich
+Teilnehmerzahl, Zuverl&auml;ssigkeit und Verkehrslast hohen Anforderungen eines
+diensteintegrierenden Kommunikationsnetzes zu erf&uuml;llen und damit
+teilnehmer&uuml;berpr&uuml;fbaren Datenschutz auch in offenen
+Kommunikationsnetzen und zudem durch die Diensteintegration preiswert zur
+Verf&uuml;gung stellen zu k&ouml;nnen, werden die Grundverfahren durch
+Implementierung verschieden gesch&uuml;tzter Verkehrsklassen, hierarchische
+Unterteilung des Kommunikationsnetzes sowie mit Datenschutz vertr&auml;gliche
+Fehlertoleranztechniken praktikabel gemacht. Anschlie&szlig;end wird gezeigt,
+wie diese praktikablen Grundverfahren zur (ausgehend von den heutigen
+Kommunikationsnetzen) evolution&auml;ren Gestaltung eines Datenschutz
+garantierenden offenen, zun&auml;chst schmalbandigen, sp&auml;ter breitbandigen
+diensteintegrierenden Digitalnetzes verwendet werden k&ouml;nnen.
+&Uuml;berlegungen zur Netzbetreiberschaft und Verantwortung f&uuml;r die
+Dienstqualit&auml;t sowie zur datenschutzgerechten Abrechnung der Netznutzung
+schlie&szlig;en die Betrachtung diensteintegrierender Kommunikationsnetze im
+engeren Sinne ab.<br>
+Um einen Ausblick auf die Nutzung solcher Kommunikationsnetze zu geben,
+skizziere ich, wie die wichtigsten Transaktionsprotokolle, n&auml;mlich solche
+f&uuml;r <i>Zahlungen</i>, <i>Warentransfer</i> <br>
+(d. h. digitale Ware gegen Geld) und <i>Dokumente</i> (z. B. Nachweis einer
+Qualifikation), und <i>statistische Erhebungen</i> so gestaltet werden
+k&ouml;nnen, da&szlig; teilnehmer&uuml;berpr&uuml;fbarer Datenschutz und
+Rechtssicherheit gew&auml;hrleistet wird. Um die Anwendbarkeit der Verfahren
+f&uuml;r teilnehmer&uuml;berpr&uuml;fbaren Datenschutz in diensteintegrierenden
+Kommunikationsnetzen auf andere Problemstellungen zu demonstrieren, gebe ich
+einen Ausblick auf eine datenschutzgerechte Gestaltung von <i>&ouml;ffentlichem
+mobilem Funk</i> (z. B. Autotelefon, Verkehrsleitsysteme) und <i>Fernwirken</i>
+(TEMEX) sowie auf eine L&ouml;sung des <i>Einschr&auml;nkungsproblems</i> in
+verteilten Systemen, d. h. wie ein ein "Trojanisches Pferd" enthaltendes
+Programm daran gehindert werden kann, Information &uuml;ber verdeckte
+Kan&auml;le weiterzugeben.<p>
+
+<hr><a name="Pfit1_90"> Andreas Pfitzmann: </a><a href="../publ/Pfit1_90Seerosen.ps.gz"><b>Entwicklungslinien der Informationstechnik und Informatik und ihre Auswirkungen auf rechtliche Beherrschung; </b></a><i>Datenschutz und Datensicherung DuD 14/12 (1990) 620-627.
+</i><p><b>Abstract: </b>
+Ich m&ouml;chte den Leser anregen, sich eine eigene Meinung zu bilden,
+inwieweit und wie informationstechnische Systeme der Zukunft rechtlich
+beherrscht werden k&ouml;nnen. Hierzu beschreibe ich den heutigen
+Entwicklungsstand der Informationstechnik und Informatik. Aus ihm und der
+Entwicklung der letzten drei Jahrzehnte lassen sich Trends der technischen
+Entwicklung erkennen, die ich hervorhebe. Wo angebracht, streue ich Bemerkungen
+&uuml;ber Auswirkungen auf die rechtliche Beherrschung, insbesondere den
+Datenschutz, ein.<p>
+
+<hr><a name="PfPf_90"> Birgit Pfitzmann, Andreas Pfitzmann: </a><a href="../publ/PfPf_90MixBrechenEc89.ps.gz"><b>How to Break the Direct RSA-Implementation of MIXes; </b></a><i>Eurocrypt '89, LNCS 434, Springer-Verlag, Berlin 1990, 373-381.
+</i><p><b>Abstract: </b>
+MIXes are a means of untraceable communication based on a public key
+cryptosystem, as published by David Chaum in 1981 (CACM 24/2, 84-88).<br>
+In the case where RSA is used as this cryptosystem directly, i.e. without
+composition with other functions (e.g. destroying the multiplicative
+structure), we show how the resulting MIXes can be broken by an active attack
+which is perfectly feasible in a typical MIX-environment.<br>
+The attack does not affect the idea of MIXes as a whole: if the security
+requirements of [6] are concretized suitably and if a cryptosystem fulfils
+them, one can implement secure MIXes directly. However, it shows that present
+security notions for public key cryptosystems, which do not allow active
+attacks, do not suffice for a cryptosystem which is used to implement MIXes
+directly.<br>
+We also warn of the same attack and others on further possible implementations
+of MIXes, and we mention several implementations which are not broken by any
+attack we know.<p>
+
+<hr><a name="PfWa_90"> Birgit Pfitzmann, Michael Waidner: </a><a href="../publ/PfWa_90FSS_formal_IB.ps.gz"><b>Formal Aspects of Fail-stop Signatures; </b></a><i>Interner Bericht 22/90 der Fakult&auml;t f&uuml;r Informatik, Universit&auml;t Karlsruhe, Dezember 1990.
+</i><p><b>Abstract: </b>
+The unforgeability of conventional digital signatures is necessarily based on
+complexity theoretic assumptions, i.e. even the most secure schemes can be
+broken by an unexpectedly powerful adversary. Thus we defined fail-stop
+signatures: They are as unforgeable as the best conventional signatures, but if
+a signature is forged, the supposed signer can prove the forgery in an
+unconditional way, with arbitrarily high probability. We construct fail-stop
+signatures from any claw-free pairs of permutations.<br>
+Here, we mainly present the formal construction.<p>
+
+<hr><a name="PWP_90"> Birgit Pfitzmann, Michael Waidner, Andreas Pfitzmann: </a><a href="../publ/PWP_90anonyZsys.ps.gz"><b>Rechtssicherheit trotz Anonymit&auml;t in offenen digitalen Systemen;</b></a><i> Datenschutz und Datensicherung DuD 14/5-6 (1990) 243-253, 305-315.
+</i><p><b>Abstract: </b>Ausgehend von der zunehmenden Bedeutung der Abwicklung von Rechtsgesch&auml;ften &uuml;ber offene digitale Systeme wird die Forderung
+abgeleitet, diese Systeme so zu gestalten, da&szlig; ihre Benutzung
+unbeobachtbar durch Unbeteiligte und anonym vor Beteiligten stattfinden, aber
+dennoch die notwendige Rechtssicherheit garantiert werden kann. Es wird
+gezeigt, da&szlig; juristische Regelungen alleine nicht ausreichen, um dies
+&uuml;berpr&uuml;fbar garantieren zu k&ouml;nnen (Kap. 1).<br>
+Als Erg&auml;nzung der juristischen Regelungen werden daher die bekannten
+technischen, d.h. informatischen Methoden und Vorschl&auml;ge dargestellt, um
+einerseits die Unbeobachtbarkeit und Anonymit&auml;t der Systembenutzung
+garantieren (Kap. 2) und andererseits unter Erhaltung der Anonymit&auml;t
+&uuml;ber das offene System mit ausreichender Rechtssicherheit die
+typischerweise anfallenden Gesch&auml;fte abwickeln zu k&ouml;nnen (Kap. 3).
+Aufgrund der besonderen Wichtigkeit werden zwei M&ouml;glichkeiten zum
+betrugssicheren Werteaustausch (z.B. Informationsdienstleistung gegen Geld)
+zwischen anonymen Parteien (Kap. 4) und ein anonymes digitales Zahlungssystem
+und dessen Abwandlungen ausf&uuml;hrlicher dargestellt (Kap. 5). Ein Ausblick
+auf offene Probleme und ein Fazit aus praktischer Sicht beschlie&szlig;en die
+Arbeit (Kap. 6).<br>
+Das Papier erscheint in zwei Teilen: der erste Teil enth&auml;lt die Kapitel 1
+bis 3, der zweite Teil die Kapitel 4 bis 6 sowie das Literaturverzeichnis
+f&uuml;r beide Teile.<p>
+
+<hr><a name="Waid_90"> Michael Waidner: </a><a href="../publ/Waid_90fail-stopDC.ps.gz"><b>Unconditional Sender and Recipient Untraceability in spite of Active Attacks; </b></a><i> Eurocrypt '89, LNCS 434, Springer-Verlag, Berlin 1990, 302-319.
+</i><p><b>Abstract: </b>
+A protocol is described which allows to send and receive messages anonymously
+using an arbitrary communication network, and it is proved to be
+unconditionally secure.<br>
+This improves a result by DAVID CHAUM: The DC-net guarantees the same, but on
+the assumption of a reliable broadcast network. Since unconditionally secure
+Byzantine Agreement cannot be achieved, such a reliable broadcast network
+cannot be realized by algorithmic means.<br>
+The solution proposed here, the DC<sup>+</sup>-net, uses the DC-net, but
+replaces the reliable broadcast network by a fail-stop one. By choosing the
+keys necessary for the DC-net dependently on the previously broadcast messages,
+the fail-stop broadcast can be achieved unconditionally secure and without
+increasing the complexity of the DC-net significantly, using an arbitrary
+communication network.<p>
+
+<hr><a name="WaPf_90"> Michael Waidner, Birgit Pfitzmann: </a><a href="../publ/WaPf_90BrieftaschenFTCS.ps.gz"><b>Loss-Tolerance for Electronic Wallets; </b></a><i>FTCS 20, 26-28th June 1990, Newcastle upon Tyne (UK), 140-147.
+</i><p><b>Abstract: </b>
+If a payment system is to be used both over a communication network and off-line, <i>electronic wallets </i>are needed, i.e. tamper-resistant devices guaranteeing the correctness of digital payments.<br>
+Besides the trustworthiness of the physical security techniques, the main problem with such devices are complete failures or losses. These would usually imply a loss of money. On the assumption that ideally tamper-resistant devices exist, we discuss the possibilities for loss tolerance measures, taking into account the preservation of both the security of the payment system and the participants' privacy.
+The only loss tolerance technique known from literature, the <i>simple distributed audit trail,</i> is shown to be insecure. However, we derive several classes of secure protocols for distributed auditing, above all the <i>distributed account list protocol</i> and the class of <i>marked standard value protocols.</i> Both can provide high fault tolerance and leave the security, the untraceability, and the ability for off-line payments of electronic wallets almost unchanged.
+
+<P><HR><P>
+<B>Back to SIRENE's
+   <A HREF="../index.html">Home</A> or
+   <A HREF="../pointers.html">Pointers to the Outside World</A>.
+</B>
+<HR>
+<ADDRESS><A HREF="../people/birgit/info.birgit.html">Birgit Pfitzmann</A>, <A
+HREF="mailto:pfitzmann@cs.uni-sb.de">pfitzmann@cs.uni-sb.de</A></ADDRESS>
+Last modified: <I> $Date: 2000/02/28 16:01:38 $</I>
+
+</BODY></HTML>

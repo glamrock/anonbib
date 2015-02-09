@@ -1,0 +1,235 @@
+<html><head>
+<title>An Optimally Robust Hybrid Mix Network - Jakobsson, Juels (ResearchIndex)</title>
+<meta name="keywords" content="Markus Jakobsson, Ari Juels http www com hybridmix ps An Optimally Robust Hybrid Mix Network14 and In PODC 01 2001">
+<meta name="description" content="We present a mix network that achieves efficient integration of public key and symmetric key operations. This hybrid mix network is capable of natural processing of arbitrarily long input elements, and is fast in both practical and asymptotic senses. While the overhead in the size of input elements">
+<meta name="copyright" content="Copyright 1997-2002 NEC Research Institute">
+</head>
+<body bgcolor="#ffffff" vlink="#7700ff" link="#0000ff" alink="#7700ff">
+<style type="text/css">
+<!--
+body { font-family: arial, Helvetica, sans-serif; font-size: 10pt; }
+.l { font-family: arial, Helvetica, sans-serif; font-size: 11pt; }
+.m { font-family: arial, Helvetica, sans-serif; font-size: 10pt; }
+.s { font-family: arial, Helvetica, sans-serif; font-size: 9pt; }
+.t { font-family: arial, Helvetica, sans-serif; font-size: 8pt; }
+.h { font-family: arial, Helvetica, sans-serif; font-size: 10pt; }
+.tl:link { color: #0000ff; text-decoration:none; }
+.cl:link { color: #6666ff; text-decoration:none; }
+.tl:visited { color: #0000ff; text-decoration:none; }
+.cl:visited { color: #6666ff; text-decoration:none; }
+.tl:hover { color: #0000ff; text-decoration:underline; }
+.cl:hover { color: #6666ff; text-decoration:underline; }
+.c { color: #777777; text-decoration:none; }
+.i { color: #777777; }
+-->
+</style>
+<span class=m>
+<table class=h border=0 cellpadding=0 cellspacing=0 width=100%><tr><td bgcolor="#d0ddee"><center><span class=l><b>An Optimally Robust Hybrid Mix Network (2001)</b></span>&nbsp;&nbsp;<span class=l><a href="http://citeseer.nj.nec.com/correct/492015"><font color=gray>(Make Corrections)</font></a></span>&nbsp;&nbsp;<span class=l><a href="http://citeseer.nj.nec.com/context/1935989/492015">(4&nbsp;citations)</a></span><br>   Markus Jakobsson, Ari Juels</center><br>
+<center><a href="/cs"><img border=0 align=center src="http://citeseer.nj.nec.com/icon/cssmall.gif"></a> &nbsp; <a href="http://citeseer.nj.nec.com/cs">Home/Search</a><script language="JavaScript">
+<!--
+if ((navigator.appName == "Microsoft Internet Explorer") && (parseInt(navigator.appVersion) >= 4)) {
+var url="http://citeseer.nj.nec.com/jakobsson01optimally.html"; var title="An Optimally Robust Hybrid Mix Network (ResearchIndex)";
+document.write(' &nbsp; <A HREF="javascript:window.ext');
+document.write('ernal.AddFavorite(url,title);" ');
+document.write('onMouseOver=" window.status=');
+document.write("'Bookmark'; return true ");
+document.write('"onMouseOut=" window.status=');
+document.write("' '; return true ");
+document.write('">Bookmark</a>');
+}
+else {
+}
+// -->
+</script>
+ &nbsp; <a href="http://citeseer.nj.nec.com/context/1935989/492015">Context</a> &nbsp; <a href="http://citeseer.nj.nec.com/nrelated/1935989/492015">Related</a>
+</td><td bgcolor="#d0ddee" width=2><font size=-1>&nbsp;</font></td><td bgcolor="#d0ddee"></td><td bgcolor="#d0ddee"><center>View or download:<br><font size=-1><a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.25%2CDownload/http%3AqSqqSqwww.markus-jakobsson.comqSqhybridmixqSqhybridmix.ps" onmouseover="self.status='http://www.markus-jakobsson.com/hybridmix/hybridmix.ps'; return true" onmouseout="self.status=''; return true">markusjakobsson.com/hyb<font color=gray>...</font>hybridmix.ps</a><br>
+Cached:&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.25%2CDownload/http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.ps.gz/jakobsson01optimally.ps.gz" onmouseover="self.status='http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.ps.gz/jakobsson01optimally.ps.gz'; return true" onmouseout="self.status=''; return true">PS.gz</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.25%2CDownload/http://citeseer.nj.nec.com/compress/0/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.ps.gz/jakobsson01optimally.ps" onmouseover="self.status='http://citeseer.nj.nec.com/compress/0/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.ps.gz/jakobsson01optimally.ps'; return true" onmouseout="self.status=''; return true">PS</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.25%2CDownload/http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.pdf/jakobsson01optimally.pdf" onmouseover="self.status='http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.pdf/jakobsson01optimally.pdf'; return true" onmouseout="self.status=''; return true">PDF</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.25%2CDownload/http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.djvu/jakobsson01optimally.djvu" onmouseover="self.status='http://citeseer.nj.nec.com/cache/papers/cs/25600/http:zSzzSzwww.markus-jakobsson.comzSzhybridmixzSzhybridmix.djvu/jakobsson01optimally.djvu'; return true" onmouseout="self.status=''; return true">DjVu</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/cachedpage/492015/1">Image</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/updatecache/492015">Update</a>&nbsp;&nbsp;<a href="/viewers.html">Help</a><br><br>
+From:&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2CSource/http%3AqSqqSqwww.markus-jakobsson.com" onmouseover="self.status='http://www.markus-jakobsson.com'; return true" onmouseout="self.status=''; return true">markusjakobsson.com</a> <a href="http://citeseer.nj.nec.com/site/492015">(more)</a><br>
+Homepages:&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2Cauthorhomepage/http%3AqSqqSqwww.cs.kau.seqSq%7ElarsqSq" onmouseover="self.status='http://www.cs.kau.se/~lars/'; return true" onmouseout="self.status=''; return true">M.Jakobsson</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2Cauthorhomepage/http%3AqSqqSqwww-cse.ucsd.eduqSqusersqSqmarkusqSq" onmouseover="self.status='http://www-cse.ucsd.edu/users/markus/'; return true" onmouseout="self.status=''; return true">[2]</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2Cauthorhomepage/http%3AqSqqSqwww.uwasa.fiqSq%7EmjqSq" onmouseover="self.status='http://www.uwasa.fi/~mj/'; return true" onmouseout="self.status=''; return true">[3]</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2Cauthorhomepage/http%3AqSqqSqwww.informatik.umu.seqSq%7EmjsonqSqbookmark.htm" onmouseover="self.status='http://www.informatik.umu.se/~mjson/bookmark.htm'; return true" onmouseout="self.status=''; return true">[4]</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0.1%2Cauthorhomepage/http%3AqSqqSqwww.cs.berkeley.eduqSq%7EsinclairqSq" onmouseover="self.status='http://www.cs.berkeley.edu/~sinclair/'; return true" onmouseout="self.status=''; return true">A.Juels</a><br>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0%2Cauthorhomepage/http%3AqSqqSqhpsearch.uni-trier.deqSq" onmouseover="self.status='http://hpsearch.uni-trier.de/'; return true" onmouseout="self.status=''; return true">HPSearch</a>&nbsp;&nbsp;<a href="http://citeseer.nj.nec.com/update/492015">(Update Links)</a></font></center></td></tr></table><br>
+<script language="JavaScript"><!--
+function rs(pos) { if (document.images) { document.images['r'+pos].src='/rs'+pos+'.gif'; document.images['r'+pos].src='/rd/0%2C492015%2C1%2C'+pos+'%2Crate/http%253A%252F%252Fciteseer.nj.nec.com/icon/rs'+pos+'.gif'; if (pos != 1) { document.images['r1'].src='/r1.gif'; } if (pos != 2) { document.images['r2'].src='/r2.gif'; } if (pos != 3) { document.images['r3'].src='/r3.gif'; } if (pos != 4) { document.images['r4'].src='/r4.gif'; } if (pos != 5) { document.images['r5'].src='/r5.gif'; } } }
+//--></script>
+<table align=right bgcolor="#cccccc" border=0 cellpadding=3 cellspacing=0 hspace=3 vspace=2>
+<tr valign=top><td align=center><font face="Arial,Helvetica,Geneva" size=2>Rate this article: <a href="javascript:rs(1)"><img src="/r1.gif" name="r1" border=0 align=bottom></a><a href="javascript:rs(2)"><img src="/r2.gif" name="r2" border=0 align=bottom></a><a href="javascript:rs(3)"><img src="/r3.gif" name="r3" border=0 align=bottom></a><a href="javascript:rs(4)"><img src="/r4.gif" name="r4" border=0 align=bottom></a><a href="javascript:rs(5)"><img src="/r5.gif" name="r5" onClick="javascript:rs(5);" border=0 align=bottom></a> (best)<br>
+&nbsp; <a href="http://citeseer.nj.nec.com/addcomment/492015">Comment on this article</a> &nbsp; </font></td></tr>
+</table>
+<center><a href="http://citeseer.nj.nec.com/update/492015">(Enter summary)</a></center><br>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var k = new Array();
+k['n'] = "http://citeseer.nj.nec.com/context/1935989/492015";
+k['1'] = "javascript:rs(1)";
+k['2'] = "javascript:rs(2)";
+k['3'] = "javascript:rs(3)";
+k['4'] = "javascript:rs(4)";
+k['r'] = "/nrelated/1935989/492015";
+k['5'] = "javascript:rs(5)";
+k['c'] = "http://citeseer.nj.nec.com/correct/492015";
+k['u'] = "http://citeseer.nj.nec.com/update/492015";
+k['v'] = "/cachedpage/492015/1";
+k['h'] = "http://citeseer.nj.nec.com/cs";
+k['i'] = "/cachedpage/492015/1";
+browser = navigator.appName;
+version = parseInt(navigator.appVersion);
+n4 = (document.layers) ? true:false;
+mozilla = (browser=="Netscape" && version>=5) ? true:false;
+ie4 = (navigator.userAgent.indexOf("MSIE 4")!=-1) ? true:false;
+ie5 = (navigator.userAgent.indexOf("MSIE 5")!=-1) ? true:false;
+ie6 = (navigator.userAgent.indexOf("MSIE 6")!=-1) ? true:false;
+ie = (navigator.userAgent.indexOf("MSIE")!=-1) ? true:false;
+function GetKey(key) {
+        eventChooser = (!ie) ? key.which : event.keyCode;
+        if (document.all) { key = window.event; }
+        if (n4) { if (key.modifiers && Event.ALT_MASK || key.modifiers && Event.CTRL_MASK) { return; } }
+        if (mozilla) { if (key.altKey || key.ctrlKey) { return; } }
+        which = String.fromCharCode(eventChooser).toLowerCase();
+        for (var i in k) { if (which == i) { window.location = k[i]; } }
+        }
+document.onkeypress = GetKey;
+// -->
+</script>
+<b>Abstract:</b> We present a mix network that achieves efficient integration of public-key and symmetric-key operations. This hybrid mix network is capable of natural processing of arbitrarily long input elements, and is fast in both practical and asymptotic senses. While the overhead in the size of input elements is linear in the number of mix servers, it is quite small in practice. In contrast to previous hybrid constructions, ours has optimal robustness, that is, robustness against any minority coalition of ... <a href="http://citeseer.nj.nec.com/update/492015">(Update)</a><br><br>
+<font size=-1 color="#907050"><b> Context of citations to this paper: &nbsp; <a href="http://citeseer.nj.nec.com/context/1935989/492015">More</a></b></font><br><br>.... <b>15] standard zeroknowledge proofs in sorting networks [3, 13] use of multiple participants per layer [8, 18] error detecting techniques <!--cite--><font color=green>[14]</font>; and techniques based on secret sharing [10, 16] We explain the relations between these in Section 2.</b> In most of these schemes, a...<br><br> ...format. <b> We propose to define this special format by adding a cryptographic checksum to the plaintext, drawing on the techniques of <!--cite--><font color=green>[JJ01]</font>.</b> This is done as follows. Users format their inputs to the mix net as an ElGamal encryption of a plaintext m and an ElGamal encryption of...<br><br><font size=-1 color="#907050"><b> Cited by: &nbsp; <a href="http://citeseer.nj.nec.com/context/1935989/492015">More</a></b></font><br>
+<a class=tl href="http://citeseer.nj.nec.com/562088.html">Provably Secure Public-Key Encryption for Length-Preserving.. - Möller (2003)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/562088"><font color=#6f6f6f>(Correct)</font></a><br>
+<a class=tl href="http://citeseer.nj.nec.com/golle02universal.html">Universal Re-encryption for Mixnets - Golle, Jakobsson, Juels, Syverson (2002)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/553495"><font color=#6f6f6f>(Correct)</font></a><br>
+<a class=tl href="http://citeseer.nj.nec.com/zhong02optimistic.html">Optimistic Mixing for Exit-Polls - Golle, Zhong, Boneh, Jakobsson, Juels</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/539038"><font color=#6f6f6f>(Correct)</font></a><br>
+<br>
+<font size=-1 color="#907050"><b> Active bibliography (related documents): &nbsp; <a href="http://citeseer.nj.nec.com/cs?q=dbnum%3D1%2CDID%3D492015%2Ccluster%3Dnone%2Cqtype%3Dactive:">More</a> &nbsp; <a href="http://citeseer.nj.nec.com/nrelated/1935989/492015">All</a></b></font><br>
+<b><i>0.6</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/mitomo00attack.html">Attack for Flash MIX - Mitomo, Kurosawa (2000)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/450148"><font color=#6f6f6f>(Correct)</font></a><br>
+<b><i>0.5</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/jakobsson02making.html">Making Mix Nets Robust For Electronic Voting By.. - Jakobsson, Juels, Rivest (2002)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/500056"><font color=#6f6f6f>(Correct)</font></a><br>
+<b><i>0.5</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/desmedt00how.html">How to break a practical MIX and design a new one - Desmedt, Kurosawa (2000)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/447709"><font color=#6f6f6f>(Correct)</font></a><br>
+<br>
+<font size=-1 color="#907050"><b> Similar documents based on text: &nbsp; <a href="http://citeseer.nj.nec.com/cs?q=dbnum%3D1%2CDID%3D492015%2Ccluster%3Dnone%2Cqtype%3Dtextsim:">More</a> &nbsp; <a href="http://citeseer.nj.nec.com/nrelated/1935989/492015">All</a></b></font><br>
+<b><i>1.0</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/jakobsson99millimix.html">Millimix: Mixing in Small Batches - Jakobsson, Juels (1999)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/220406"><font color=#6f6f6f>(Correct)</font></a><br>
+<b><i>0.7</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/jakobsson00mix.html">Mix and Match: Secure Function Evaluation via Ciphertexts.. - Jakobsson, Juels (2000)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/320169"><font color=#6f6f6f>(Correct)</font></a><br>
+<b><i>0.6</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/jakobsson99flash.html">Flash Mixing - Jakobsson (1999)</a>
+ 
+ &nbsp; <a href="http://citeseer.nj.nec.com/correct/306189"><font color=#6f6f6f>(Correct)</font></a><br>
+<br>
+<font size=-1 color="#907050"><b> Related documents from co-citation: &nbsp; <a href="http://citeseer.nj.nec.com/cs?q=dbnum%3D1%2CGID%3D1935989%2Ccluster%3Dnone%2Cqtype%3Dcocitation:">More</a> &nbsp; <a href="http://citeseer.nj.nec.com/nrelated/1935989/492015">All</a></b></font><br>
+<b><i>4</i></b>: &nbsp; <a class=cl href="http://citeseer.nj.nec.com/context/56905/0">Untraceable electronic mail (context)</a> - Chaum - 1981<br>
+<b><i>3</i></b>: &nbsp; <a class=tl href="http://citeseer.nj.nec.com/tsiounis98security.html">the Security of El Gamal based Encryption</a>
+ - Tsiounis, Yung - 1998<br>
+<b><i>3</i></b>: &nbsp; <a class=cl href="http://citeseer.nj.nec.com/context/1262715/0">A mix-network on permutation networks (context)</a> - Abe - 1999<br>
+<br>
+<font size=-1 color="#907050"><b> BibTeX entry: &nbsp; <a href="http://citeseer.nj.nec.com/update/492015">(Update)</a></b></font><br>
+<br>
+<font size=-1>M. Jakobsson and A. Juels. An optimally robust hybrid mix network. In PODC '01, 2001. http://citeseer.nj.nec.com/jakobsson01optimally.html &nbsp; <a href="http://citeseer.nj.nec.com/check/1935989">More</a></font><br><!--gbr--><br><!--gbr2--><pre>@misc{ jakobsson01optimally,
+  author = "M. Jakobsson and A. Juels",
+  title = "An optimally robust hybrid mix network",
+  note = "PODC'01.",
+  year = "2001",
+  url = "citeseer.nj.nec.com/jakobsson01optimally.html" }</pre>
+<!--kbr--><!--kbr2--><font size=-1 color="#907050"><b> Citations (may not include all citations):</b></font><br>
+461 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/12864/0">Distributed Algorithms (context)</a> - Lynch - 1995<br>
+236 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/fiat87how.html">How to prove yourself: Practical solutions to identification..</a>
+ - Fiat, Shamir - 1986<br>
+193 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/12703/0">Probabilistic encryption (context)</a> - Goldwasser, Micali - 1984<br>
+169 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/56905/0">Untraceable electronic mail (context)</a> - Chaum - 1981<br>
+108 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/7253/0">Wallet databases with observers (context)</a> - Chaum, Pedersen - 1992<br>
+85 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/gennaro96robust.html">Robust threshold DSS signatures</a>
+ - Gennaro, Jarecki et al. - 1996<br>
+79 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/178393/0">Pseudorandomness and Cryptographic Applications (context)</a> - Luby - 1996<br>
+72 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/syverson97anonymous.html">Anonymous connections and onion routing</a>
+ - Syverson, Goldschlag et al. - 1997<br>
+55 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/cramer94proofs.html">Proofs of partial knowledge and simplified design of witness..</a>
+ - Cramer, Damgard et al. - 1994<br>
+42 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/pfitzmann91isdnmixe.html">ISDN-MIXes: Untraceable communication with very small bandwi..</a>
+ - Pfitzmann, Pfitzmann et al. - 1991<br>
+32 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/121606/0">How to make personalized Web browsing simple (context)</a> - Gabber, Gibbons et al. - 1997<br>
+30 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson99flash.html">Flash mixing</a>
+ - Jakobsson - 1999<br>
+28 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson98practical.html">A practical mix</a>
+ - Jakobsson - 1998<br>
+21 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/756778/0">Universally verifiable mix-net with verification work indepe.. (context)</a> - Abe - 1998<br>
+19 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/desmedt00how.html">How to break a practical mix and design a new one</a>
+ - Desmedt, Kurosawa - 2000<br>
+16 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/pfitzmann90how.html">How to break the direct RSA-implementation of MIXes</a>
+ - Pfitzmann, Pfitzmann - 1989<br>
+15 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/337545.html">Mix-based electronic payments</a>
+ - Jakobsson, M'Rahi - 1998<br>
+15 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson99millimix.html">Millimix: Mixing in small batches</a>
+ - Jakobsson, Juels - 1999<br>
+14 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/desantis94monotone.html">On monotone formula closure of SZK</a>
+ - de Santis, di Crescenzo et al. - 1994<br>
+14 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/127244/0">Receipt-free mix-type voting scheme - a practical solution t.. (context)</a> - Sako, Kilian - 1995<br>
+13 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/ogata97fault.html">Fault tolerant anonymous channel</a>
+ - Ogata, Kurosawa et al. - 1997<br>
+13 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson00mix.html">Mix and match: Secure function evaluation via ciphertexts</a>
+ - Jakobsson, Juels<br>
+13 &nbsp;
+<a class=tl href="http://citeseer.nj.nec.com/mitomo00attack.html">Attack for flash mix</a>
+ - Mitomo, Kurosawa<br>
+11 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1262715/0">A mix-network on permutation networks (context)</a> - Abe - 1999<br>
+10 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1909856/0">A length-invariant hybrid mix (context)</a> - Ohkubo, Abe<br>
+9 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1048911/0">security of distributed key generation in dlog-based cryptos.. (context)</a> - Gennaro, Jarecki et al. - 1999<br>
+7 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1484869/0">cient receipt-free voting based on homomorphic encryption (context)</a> - Hirt, Sako - 2000<br>
+2 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1915461/0">Allnothing election scheme and anonymou channel (context)</a> - Itoh, nothing et al. - 1993<br>
+1 &nbsp;
+<a class=cl href="http://citeseer.nj.nec.com/context/1915460/0">Targeted advertising and privacy too (context)</a> - Juels - 2001<br>
+<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0%2Ccitedurl/http%3AqSqqSqwww.ari-juels.com" onmouseover="self.status='http://www.ari-juels.com'; return true" onmouseout="self.status=''; return true">http://www.ari-juels.com</a><br>
+<a href="http://citeseer.nj.nec.com/rd/0%2C492015%2C1%2C0%2Ccitedurl/http%3AqSqqSqwww.markus-jakobsson.com" onmouseover="self.status='http://www.markus-jakobsson.com'; return true" onmouseout="self.status=''; return true">http://www.markus-jakobsson.com</a><br><br><font size=-1 color="#907050"><b> Documents on the same site (http://www.markus-jakobsson.com):  &nbsp; <a href="http://citeseer.nj.nec.com/site/492015">More</a></b></font><br>
+<a class=tl href="http://citeseer.nj.nec.com/479432.html">X-Cash: Executable Digital Cash (Extended Abstract) - Jakobsson, Juels</a>
+  &nbsp; <a href="http://citeseer.nj.nec.com/correct/479432"><font color=#6f6f6f>(Correct)</font></a><br>
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson01security.html">Security Weaknesses in Bluetooth - Jakobsson, Wetzel (2001)</a>
+  &nbsp; <a href="http://citeseer.nj.nec.com/correct/481041"><font color=#6f6f6f>(Correct)</font></a><br>
+<a class=tl href="http://citeseer.nj.nec.com/jakobsson01discouraging.html">Discouraging Software Piracy Using Software Aging - Jakobsson, Reiter</a>
+  &nbsp; <a href="http://citeseer.nj.nec.com/correct/491799"><font color=#6f6f6f>(Correct)</font></a><br>
+<br>
+
+<!-- ddv: 0.1 did: 492015 -->
+<!-- rcm: activebib: 553495 539038 450148 500056 447709 citedby: 562088 553495 539038 cocitation: 17172 onsamesite: 479432 481041 491799 cites: 383179 108759 447709 576205 94009 278755 306189 220406 320169 337545 450148 533332 10979 41156 13001 text: 220406 539038 320169 306189 --><!--kbr--><!--kbr2--><!-- abs --><font size=-1><a href="http://citeseer.nj.nec.com/rd/0/http%3AqSqqSqwww.neci.nec.comqSq%7ElawrenceqSqpapersqSqonline-nature01qSq" onmouseover="self.status='http://www.neci.nec.com/~lawrence/papers/online-nature01/'; return true" onmouseout="self.status=''; return true">Online articles have much greater impact</a> &nbsp; <a href="http://citeseer.nj.nec.com/rd/0/http%3AqSqqSqciteseer.nj.nec.comqSqlawrence99digital.html" onmouseover="self.status='http://citeseer.nj.nec.com/lawrence99digital.html'; return true" onmouseout="self.status=''; return true">More about CiteSeer</a> &nbsp; <a href="http://citeseer.nj.nec.com/rd/0/http%3AqSqqSqciteseer.nj.nec.comqSqcs%3Fsf%3D1" onmouseover="self.status='http://citeseer.nj.nec.com/cs?sf=1'; return true" onmouseout="self.status=''; return true">Add search form to your site</a> &nbsp; <a href="http://citeseer.nj.nec.com/cs?adddoc=Yes">Submit documents</a> &nbsp; <script language="JavaScript"><!--
+document.write("<");document.write("a hre");document.write("f=mai");document.write("lto");document.write(":");
+document.write("%66ee%64%62%61%63k%40%72");document.write("%65%73%65%61%72%63h%69%6e%64%65");document.write("x.org?subject=Feedback");document.write(">");document.write("Feedback");document.write("<");document.write("/a>");
+// --></script><noscript>
+Feedback: &#x66;ee&#x64;&#x62;&#x61;&#x63;&#x6b;&#x20;&#x61;<font size=+0></font>t&#x20;&#x72;&#x65;&#x73;&#x65;&#x61;&#x72;&#x63;&#x68;&#x69;<font size=+0></font>&#x6e;&#x64;&#x65;&#x78;&#x2e;&#x6f;&#x72;&#x67;</noscript> &nbsp; <!-- exs --><!-- exe --><br></font><!-- abe --><br><!--kbr--><!--kbr2--><font size=-1>CiteSeer - <a href="http://citeseer.org/">citeseer.org</a> - <a href="http://citeseer.nj.nec.com/terms.html">Terms of Service</a> - <a href="http://citeseer.nj.nec.com/terms.html#privacy">Privacy Policy</a> - Copyright &#169; 1997-2002 <a href="http://www.neci.nec.com/">NEC Research Institute</a></font><br>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (window != top) top.location.href = location.href;
+// -->
+</SCRIPT>
+<!done>
+</body></html>

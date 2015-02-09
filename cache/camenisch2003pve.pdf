@@ -1,0 +1,376 @@
+
+<!doctype html public "-//w3c//dtd html 4.0 transitional//en">
+<html>
+  <head>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <title>SpringerLink Home - Main</title><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.RecognizedAsControl.css"/><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.LoggedInAsControl.css"/><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.LogOutControl.css"/><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.FooterControl.css"/><link type="text/css" rel="stylesheet" href="/reader.css"/><link type="text/css" rel="stylesheet" href="/master.css"/><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.FindTextBox.css"/><link type="text/css" rel="stylesheet" href="/home/main.css"/><link type="text/css" rel="stylesheet" href="/css/MetaPress.Products.Reader.Web.UI.Controls.QueryBuilderControl.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon_springerlink.ico">    
+    <meta http-equiv="Page-Exit" content="blendTrans(Duration=0)"> 
+  </head>
+  <body>
+    <script type="text/javascript"><!-- 
+      google_ad_client = "pub-8138583500318868"; 
+      google_alternate_color = "ECECEC";
+      google_ad_width = 160; 
+      google_ad_height = 600; 
+      google_ad_format = "160x600_as"; 
+      google_ad_type = "text"; 
+      //2006-12-18: Link 
+      google_ad_channel = "5599067338"; 
+      google_color_border = "ECECEC"; 
+      google_color_bg = "ECECEC"; 
+      google_color_link = "5A597B"; 
+      google_color_text = "000000"; 
+      google_color_url = "0000CC"; 
+    //--></script>
+    
+<script type="text/javascript" src="/ajaxpro/prototype.ashx"></script>
+<script type="text/javascript" src="/ajaxpro/core.ashx"></script>
+<script type="text/javascript" src="/ajaxpro/ms.ashx"></script>
+<script type="text/javascript" src="/ajaxpro/converter.ashx"></script>
+<script type="text/javascript" src="/ajaxpro/MetaPress.Web.UI.Page,MetaPress.Web.ashx"></script>
+<form name="aspnetForm" method="post" action="main.mpx" id="aspnetForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUBMGRk+zsyHXprnmTG7OA38nJriRhlWDE=" />
+
+<script type="text/javascript" src="/js/MetaPress.Web.Common.js,MetaPress.Web.js"></script><script> 
+  var isIE = false; 
+</script> 
+<!--[if IE]> 
+  <script> 
+    isIE = true; 
+  </script> 
+<![endif]--><script type="text/javascript" src="/js/MetaPress.Web.SelectedItemsHyperLink.js,MetaPress.Web.js"></script><script type="text/javascript" src="/js/MetaPress.Web.SelectedItems.js,MetaPress.Web.js"></script><script type="text/javascript" src="/js/MetaPress.Web.Positioning.js,MetaPress.Web.js"></script><script type="text/javascript" src="/js/MetaPress.Web.AdvancedTextBox.js,MetaPress.Web.js"></script><script type="text/javascript" src="/js/MetaPress.Web.DefaultTextBox.js,MetaPress.Web.js"></script><script type="text/javascript" src="/js/MetaPress.Products.Reader.QueryBuilderControl.js,MetaPress.Products.Reader.js"></script>
+<!-- google_ad_section_start(weight=ignore) -->
+      <table class="outerTable"  cellpadding="0" cellspacing="0">
+        <tr valign="top" >
+          <td class="leftMainColumn">
+            <div class="logo">
+              <a href="main.mpx">
+                <img src="/images/springerlink-logo.gif" height="50" width="180">
+              </a>
+            </div>
+            
+            <div id="ctl00_PersonalizationPanel">
+	
+              <div class="MetaPress_Products_Reader_Web_UI_Controls_RecognizedAsControlBody">
+		<a href="http://auth.athensams.net/?ath_returl=%22http%3a%2f%2fspringerlink.metapress.com%2f(egwtc3ivlz3u14mrth1vsjj2)%2fdefault.asp%3faction%3dformsubmit%26referrer%3dathens%22&amp;ath_dspid=SPRINGER">Athens Authentication Point</a>
+	</div><div class="MetaPress_Products_Reader_Web_UI_Controls_RecognizedAsControlHeading">
+		Recognized as:
+	</div><div class="MetaPress_Products_Reader_Web_UI_Controls_RecognizedAsControlBody">
+		Massachusetts Institute of Technology, MIT Libraries <nobr>(214-57-822)</nobr>
+	</div><div class="MetaPress_Products_Reader_Web_UI_Controls_RecognizedAsControlBody">
+		NorthEast Research Libraries NERL 2007, 3841 <nobr>(417-39-326)</nobr>
+	</div>
+              <div class="MetaPress_Products_Reader_Web_UI_Controls_LoggedInAsControlHeading">
+		Welcome!
+	</div><div class="MetaPress_Products_Reader_Web_UI_Controls_LoggedInAsControlBody">
+		To use the personalized features of this site, please <b><a href="https://commerce.metapress.com/identities/me/?sid=egwtc3ivlz3u14mrth1vsjj2&amp;sh=springerlink.metapress.com">log in</a></b> or <b><a href="https://commerce.metapress.com/identities/register/?sid=egwtc3ivlz3u14mrth1vsjj2&amp;sh=springerlink.metapress.com">register</a></b>.
+	</div><div class="MetaPress_Products_Reader_Web_UI_Controls_LoggedInAsControlBody">
+		If you have forgotten your username or password, we can <b><a href="https://commerce.metapress.com/identities/help/?sid=egwtc3ivlz3u14mrth1vsjj2&amp;sh=springerlink.metapress.com">help</a></b>.
+	</div>
+              
+              
+                  <div class="PersonalizationMenuHeader">
+                    My SpringerLink
+                  </div>
+                  <div class="defaultPadding">
+                    
+                          <div class="PersonalizationMenuItem">
+                            <a class=" markedItemsNoItems" id="ctl00_ctl22_ctl01_MarkedItemsLink" href="/marked-items/" collection="SelectedPrimitives" isSelectedItemsLink="true" displayCount="true">Marked Items<span id="ctl00_ctl22_ctl01_MarkedItemsLink_Count">&nbsp;</span></a>
+                          </div>
+                        
+                  <div class="PersonalizationMenuItem">
+                    <a href="../personalization/saved-items.mpx?view=alertable">
+                      Alerts
+                    </a>
+                  </div>
+                
+                  <div class="PersonalizationMenuItem">
+                    <a href="../account/orders.mpx">
+                      Order History
+                    </a>
+                  </div>
+                
+                  </div>
+                
+                  <div class="PersonalizationMenuHeader">
+                    Saved Items
+                  </div>
+                  <div class="defaultPadding">
+                    
+                      <div class="PersonalizationMenuItem">
+                        <a href="../personalization/saved-items.mpx" label="All" count="0">
+                          All
+                        </a>
+                      </div>
+                    
+                      <div class="PersonalizationMenuItem">
+                        <a href="../personalization/saved-items.mpx?label=Favorites" label="Favorites" count="0">
+                          Favorites
+                        </a>
+                      </div>
+                    
+                  </div>
+                
+            
+</div>
+            <div>
+              <a href="http://www.springer.com/ebooks" target="_blank">
+                <img src="../images/06awardwinner.gif" alt="Best STM Information Product" />
+              </a>
+            </div>
+          </td>
+          <td>
+            <table height="100%" cellpadding="0" cellspacing="0">
+              <tr height="*" valign="top" style="display:block;" >
+                <td>
+                  <div class="headerBackground">
+                    <div class="headerTop">
+                      
+                      <span id="ctl00_CultureDropDownList_ctl00"><select name="ctl00$CultureDropDownList$ctl00$List" id="ctl00_CultureDropDownList_ctl00_List">
+	<option value="zh-cn">中文(简体)</option>
+	<option value="zh-tw">中文(繁體)</option>
+	<option selected="selected" value="en-us">English</option>
+	<option value="de-de">Deutsch</option>
+	<option value="ko-kr">한국어</option>
+
+</select><input type="submit" name="ctl00$CultureDropDownList$ctl00$GoButton" value="Go" id="ctl00_CultureDropDownList_ctl00_GoButton" class="button defaultButtonSpacing" OnMouseOver="className='button buttonHover';" OnMouseOut="className='button';" /></span>
+                    </div>
+                    
+<!-- google_ad_section_end -->
+<!-- google_ad_section_start -->
+                    <div id="ctl00_PageHeadingPanel">
+	<div class="heading defaultPadding">
+		Welcome to SpringerLink!
+	</div><div class="headerParagraph defaultPadding">
+		SpringerLink is one of the world's leading interactive databases for high-quality STM <a href="/journals/">journals</a>, <a href="/book-series/">book series</a>, <a href="/books/">books</a>, <a href="/reference-works/">reference works</a> and the Online Archives Collection. SpringerLink is a powerful central access point for researchers and scientists.
+	</div>
+</div>                    
+                  </div>                  
+                  
+                  <table cellpadding="0" cellspacing="4" height="100%">
+                    <tr>
+                      <td class="defaultHeight" width="100%" valign="top">
+                        
+<table class="mainTable" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      
+      
+    </td>
+  </tr>
+</table>
+
+<table class="autoWidth paragraphPadding" cellpadding="0" cellspacing="0">
+  <tr>
+    <td>
+      <div style="width: auto;">
+        <div class="floatRight">
+          <a href="../find.mpx">
+            more options
+          </a>
+        </div>
+        <div class="heading">
+          Find content by keyword 
+        </div>
+      </div>
+      <div id="SearchSpan">                    
+        <span key="advancedTextBox" class="findTextBox MetaPress_Products_Reader_Web_UI_Controls_FindTextBox" id="ctl00_ctl18_FindTextBox"><input name="ctl00$ctl18$FindTextBox$MainTextBox" type="text" id="ctl00_ctl18_FindTextBox_MainTextBox" class="advancedTextBox" key="text" action="click" target="ctl00_ctl18_FindTextBox_GoButton" /><input type="submit" name="ctl00$ctl18$FindTextBox$ExpandButton" value="..." onclick="return advancedTextBox_toggle(event);" id="ctl00_ctl18_FindTextBox_ExpandButton" title="Toggle Query Builder" class="advancedTextBoxExpandButton button" key="expand" OnMouseOver="className='advancedTextBoxExpandButton button advancedTextBoxExpandButton buttonHover';" OnMouseOut="className='advancedTextBoxExpandButton button';" /><input type="submit" name="ctl00$ctl18$FindTextBox$GoButton" value="Go" id="ctl00_ctl18_FindTextBox_GoButton" class="advancedTextBoxGoButton button defaultButtonSpacing" key="go" OnMouseOver="className='advancedTextBoxGoButton button advancedTextBoxGoButton buttonHover';" OnMouseOut="className='advancedTextBoxGoButton button';" /><div id="ctl00_ctl18_FindTextBox_Contents" key="contents" class="advancedTextBoxContents">
+	
+<div class="queryBuilder floatContainer">
+  <div class="title">
+    <span>Query Builder</span>
+    <span class="rightLink" onclick="queryBuilder_close(event);">Close</span>
+    <span class="rightLinkSeperator">|</span>
+    <span class="rightLink" onclick="queryBuilder_clear(event);">Clear</span>
+  </div>
+  <div class="list">
+    <!--<div>Fields</div>-->
+    <ul key="fieldList">
+      <li class="firstItem" arg="ti:()">        
+        <a href="#">Title (ti)</a>        
+      </li>
+      <li arg="su:()">        
+        <a href="#">Summary (su)</a>        
+      </li>
+      <li arg="au:()">        
+        <a href="#" >Author (au)</a>        
+      </li>
+      <li arg="issn:()">        
+        <a href="#">ISSN (issn)</a>        
+      </li>
+      <li arg="isbn:()">        
+        <a href="#">ISBN (isbn)</a>        
+      </li>
+      <li arg="doi:()">        
+        <a href="#">DOI (doi)</a>        
+      </li>
+      <li>        
+        <a href="#">&nbsp;</a>        
+      </li>      
+    </ul>
+  </div>
+  <div class="list">
+    <!--<div>Operators</div>-->
+    <ul key="operatorList">
+      <li class="firstItem" arg=" AND "><a href="#">And</a></li>
+      <li arg=" OR "><a href="#">Or</a></li>
+      <li arg=" NOT "><a href="#">Not</a></li>
+      <li arg=" ("><a href="#">(</a></li>
+      <li arg=") "><a href="#">)</a></li>
+      <li arg="*"><a href="#">* (wildcard)</a></li>
+      <li arg="&quot;&quot;"><a href="#">"" (exact)</a></li>
+    </ul>
+  </div>            
+</div>
+</div></span>
+      </div>      
+    </td>
+  </tr>
+</table>
+
+<table class="autoWidth" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2">
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap>      
+      <div class="heading">
+        Content type
+      </div>
+      <ul class="paragraphPadding">
+        <li>
+          <a href="../content/">All (3,440,564)</a>
+        </li>
+        <li>
+          <a href="/publications/">Publications (21,010)</a>
+        </li>
+        <li>
+          <a href="/journals/">Journals (1,859)</a>
+        </li>
+        <li>
+          <a href="/book-series/">Book Series (801)</a>
+        </li>
+        <li>
+          <a href="/books/">Books (18,350)</a>
+        </li>
+        <li>
+          <a href="/reference-works/">Reference Works (100)</a>
+        </li>
+      </ul>
+
+      <div class="heading">
+       Featured library
+      </div>
+      <ul class="paragraphPadding">
+        <li>
+          <a href="/chinese-library-of-science/">Chinese Library of Science (20,753)</a>
+        </li>
+        <li>
+          <a href="/russian-library-of-science/">Russian Library of Science (444,634)</a>
+        </li>
+      </ul>
+    </td>
+    <td valign="top">
+      <div class="heading">
+        Subject Collection
+      </div>
+      <ul class="block">
+        <li>
+          <a href="/architecture-and-design/">Architecture and Design (444)</a>
+        </li>
+        <li>
+          <a href="/behavioral-science/">Behavioral Science (57,739)</a>
+        </li>
+        <li>
+          <a href="/biomedical-and-life-sciences/">Biomedical and Life Sciences (729,265)</a>
+        </li>
+        <li>
+          <a href="/business-and-economics/">Business and Economics (76,182)</a>
+        </li>
+        <li>
+          <a href="/chemistry-and-materials-science/">Chemistry and Materials Science (467,750)</a>
+        </li>
+        <li>
+          <a href="/computer-science/">Computer Science (254,507)</a>
+        </li>
+        <li>
+          <a href="/earth-and-environmental-science/">Earth and Environmental Science (155,568)</a>
+        </li>
+        <li>
+          <a href="/engineering/">Engineering (135,160)</a>
+        </li>
+        <li>
+          <a href="/humanities-social-sciences-and-law/">Humanities, Social Sciences and Law (140,578)</a>
+        </li>
+        <li>
+          <a href="/mathematics-and-statistics/">Mathematics and Statistics (232,863)</a>
+        </li>
+        <li>
+          <a href="/medicine/">Medicine (602,574)</a>
+        </li>
+        <li>
+          <a href="/physics-and-astronomy/">Physics and Astronomy (406,738)</a>          
+        </li>
+        <li>
+          <a href="/professional-computing-and-web-design/">Professional Computing and Web Design (3,782)</a>          
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
+<!-- google_ad_section_end -->
+                      </td>
+                      <td bgcolor="#ececec" valign="top">
+                        
+                      </td>
+                    </tr>
+                  </table>
+
+                </td>
+              </tr>
+          
+              <tr height="10">
+                <td class="defaultPadding">
+                  <div class="defaultPaddingBottom">
+                    <a href="../help/faq/default.mpx">
+                      Frequently asked questions
+                    </a> |
+                    <a href="http://www.springeronline.com/" target="_blank">
+                      General information on journals and books
+                    </a>|
+                    <a href="../feedback.mpx">
+                      Send us your feedback
+                    </a>|
+                    <a href="http://www.springer.com/east/home/generic/legal?SGWID=5-40113-0-0-0" target="_blank">
+                      Impressum
+                    </a>
+                  </div>
+                  <div class="defaultPaddingBottom">
+                    © Springer.
+                    <a href="http://www.springer-sbm.de/" target="_blank">
+                      Part of Springer Science+Business Media
+                    </a>  
+                  </div>
+                  <div class="defaultPaddingBottom">
+                    <a href="../help/disclaimer.mpx">
+                      Privacy, Disclaimer, Terms and Conditions, © Copyright Information
+                    </a>
+                  </div>
+                  <div class="MetaPress_Products_Reader_Web_UI_Controls_FooterControl">
+	<div class="MetaPress_Products_Reader_Web_UI_Controls_FooterControlUserDetails">
+		Remote Address:&nbsp;128.31.0.34&nbsp;•&nbsp;Server:&nbsp;mpweb18<br>HTTP User Agent:&nbsp;Python-urllib/2.4<br><br>
+	</div>
+</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWCgK/9NOzDALEysCABAK9y/S5CQK2wsCaAgKlwIj5DALpzty2DgLU0rCdDgKzouzbCwKC29zrCwL26YrvAkuOnvc8YIXYR9CQ2tDsJmE7UBbE" />
+<script> var SelectedPrimitivesCount = selectedItems_getCount('SelectedPrimitives'); selectedItemsHyperLink_onLoad('SelectedPrimitives');</script><script>document.getElementById('ctl00_CultureDropDownList_ctl00_GoButton').style.display = 'none';</script><script>advancedTextBox_onLoad('ctl00_ctl18_FindTextBox');</script><script> addHandler(getElement('ctl00_ctl18_FindTextBox_MainTextBox'), 'onkeypress', defaultTextBox_captureEnter); </script><script>queryBuilder_wireUpEvents('ctl00_ctl18_FindTextBox')</script><script language='javascript'>setDefaultFocus('ctl00_ctl18_FindTextBox_MainTextBox')</script></form>
+  </body>
+</html>
