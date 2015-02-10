@@ -1,5 +1,9 @@
 This is a mirror of freehaven's anonymous bibliography.  As of February 2015, it is about 310mb in size. The original webpage [is here](http://freehaven.net/anonbib/).  The original bibtex file [is here](https://gitweb.torproject.org/anonbib.git/plain/anonbib.bib).
 
+![Owls](owl.png) Owls signify a very important paper.
+![Gold star](./gold.gif) Gold stars mean more than 50 citations on Google Scholar
+![Silver star](./silver.gif) Silver stars mean more than 5 citations so far
+
 
 # Selected Papers in Anonymity
 
